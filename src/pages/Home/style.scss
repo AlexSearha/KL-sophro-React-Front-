@@ -1,0 +1,34 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 2rem;
+
+  &__image {
+    text-align: center;
+    max-width: 80%;
+  }
+}
+
+.introducing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    &__photo {
+      max-width: 90vw;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  p {
+    text-align: justify;
+  }
+}
