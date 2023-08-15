@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import HorizontalSplitIcon from '@mui/icons-material/HorizontalSplit';
 
 function MobileMenu() {
   return (
@@ -9,12 +10,12 @@ function MobileMenu() {
       {(popupState) => (
         <>
           <Button variant="contained" {...bindTrigger(popupState)}>
-            Dashboard
+            <HorizontalSplitIcon />
           </Button>
           <Menu {...bindMenu(popupState)}>
-            <MenuItem onClick={popupState.close}>Profile</MenuItem>
-            <MenuItem onClick={popupState.close}>My account</MenuItem>
-            <MenuItem onClick={popupState.close}>Logout</MenuItem>
+            <MenuItem onClick={popupState.close}>Mon compte</MenuItem>
+            <MenuItem onClick={popupState.close}>Prendre Rendez-vous</MenuItem>
+            <MenuItem onClick={popupState.close}>Se déconnecter</MenuItem>
           </Menu>
         </>
       )}
