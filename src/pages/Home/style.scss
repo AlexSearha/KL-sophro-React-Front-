@@ -49,3 +49,44 @@
     text-align: justify;
   }
 }
+
+.la-sophrologie h2 {
+  margin-bottom: 3rem;
+}
+
+.la-sophrologie p {
+  text-align: justify;
+}
+
+.la-sophrologie {
+  display: flex;
+  flex-direction: column;
+
+  &__partone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+      width: 30%;
+    }
+  }
+}
+
+.therapy-organisation {
+  position: relative;
+  z-index: 1;
+
+  // &::after {
+  //   content: '';
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   background-image: url('https://sophro.mytechcompanion.fr/wp-content/uploads/2022/09/feuilles.webp');
+  //   background-position: center;
+  //   background-repeat: no-repeat;
+  //   background-size: cover;
+  // }
+}
