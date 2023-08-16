@@ -2,6 +2,7 @@ import FooterMobile from '../../components/Footer/Footer';
 import HeaderMobile from '../../components/Header/Header';
 import treeImage from '../../assets/arbre2w.webp';
 import katiaPhoto from '../../assets/katia-plage-redux2-e1679909092745.webp';
+import diplome from '../../assets/logoblancSUPDESOPHRO-e1664629093876.png';
 
 import './style.scss';
 
@@ -19,7 +20,7 @@ function Home() {
       </section>
 
       <section className="introducing">
-        <div className="introducing__div">
+        <div className="introducing__partone">
           <img
             className="introducing__div__photo"
             src={katiaPhoto}
@@ -46,6 +47,29 @@ function Home() {
             nous envoi des signaux. Inversement quand le corps souffre, le
             mental s’en ressens.
           </p>
+        </div>
+        <div className="introducing__parttwo">
+          <div className="introducing__parttwo__diplome">
+            <img src={diplome} alt="sup de sophro" />
+            <h4>Diplomée</h4>
+            <p>Diplômée de l&apos;école SUPÉRIEURE DE SOPHROLOGIE - 2021</p>
+          </div>
+          <div className="introducing__parttwo__intro-text-suite">
+            <p>
+              J&apos;ai donc choisi de me former en sophrologie à l&apos;école
+              Sup de sophrologie. Une fois mon diplôme obtenu, j&apos;ai eu
+              envie de commencer à aider autour de moi les gens en souffrance en
+              leur apportant des outils pour se sentir mieux dans leurs corps et
+              dans leur tête.
+              <br />
+              <br />
+              Le travail d’un sophrologue c&apos;est de montré à la personne qui
+              vient nous consulter, qu&apos;il possède en lui déjà toutes les
+              ressources pour aller mieux et que nous ne sommes qu’une boussole
+              pour lui indiquer la direction et pour développer cette capacité à
+              ramener le calme en soi, le bien-être et l&apos;harmonie.
+            </p>
+          </div>
         </div>
       </section>
       <FooterMobile />
