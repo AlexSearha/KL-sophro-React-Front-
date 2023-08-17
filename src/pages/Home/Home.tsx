@@ -1,8 +1,13 @@
+// MUI
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
+import { Button } from '@mui/material';
 import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
+// React Component
 import FooterMobile from '../../components/Footer/Footer';
 import HeaderMobile from '../../components/Header/Header';
+import PriceCard from './PriceCard/PriceCard';
+// images
 import treeImage from '../../assets/arbre2w.webp';
 import katiaPhoto from '../../assets/katia-plage-redux2-e1679909092745.webp';
 import diplome from '../../assets/logoblancSUPDESOPHRO-e1664629093876.png';
@@ -11,9 +16,9 @@ import plantsPic from '../../assets/plantes-600x362.webp';
 import famillyPic from '../../assets/famille2.webp';
 import manPic from '../../assets/businessman.webp';
 import talkAfterTherapy from '../../assets/talkaftertherapy.webp';
-
+import adulteWoman from '../../assets/adulte_faceless-e1669810596397.webp';
+// CSS
 import './style.scss';
-import { Button } from '@mui/material';
 
 function Home() {
   return (
@@ -217,7 +222,16 @@ function Home() {
             </p>
           </div>
           <div>
-            <h3>-2-</h3>
+            <h3>-3-</h3>
+            <WeekendOutlinedIcon style={{ fontSize: '100px' }} />
+            <h4>Exercices de réspiration</h4>
+            <p>
+              Instant de détente et lâcher prise, ou vous vous laissez guider
+              par ma voix.
+            </p>
+          </div>
+          <div>
+            <h3>-4-</h3>
             <img
               style={{ width: '25%' }}
               src={talkAfterTherapy}
@@ -230,6 +244,19 @@ function Home() {
             </p>
           </div>
           <Button variant="contained">Le détail complet</Button>
+        </section>
+
+        <section className="costs">
+          <h2>Mes préstations</h2>
+          <div>
+            <PriceCard
+              photo={adulteWoman}
+              // title={}
+              // description={}
+              // price={}
+              // url={}
+            />
+          </div>
         </section>
       </main>
       <FooterMobile />
