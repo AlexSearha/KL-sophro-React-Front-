@@ -1,7 +1,7 @@
 // MUI
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 // React Component
 import FooterMobile from '../../components/Footer/Footer';
@@ -17,6 +17,8 @@ import famillyPic from '../../assets/famille2.webp';
 import manPic from '../../assets/businessman.webp';
 import talkAfterTherapy from '../../assets/talkaftertherapy.webp';
 import adulteWoman from '../../assets/adulte_faceless-e1669810596397.webp';
+import studentPic from '../../assets/Etudiant-e1669810949103.webp';
+import childPic from '../../assets/teen-e1669811659157.webp';
 // CSS
 import './style.scss';
 
@@ -248,15 +250,60 @@ function Home() {
 
         <section className="costs">
           <h2>Mes préstations</h2>
-          <div>
+          <div className="costs__prestations">
             <PriceCard
               photo={adulteWoman}
-              // title={}
-              // description={}
-              // price={}
-              // url={}
+              title="ADULTE"
+              description="Séance individuelle et/ou collectif de sophrologie"
+              bonusDescription=""
+              price={50}
+              url="https://www.google.com"
+            />
+            <PriceCard
+              photo={childPic}
+              title="ADOLESCENT"
+              description="Séance individuelle de sophrologie"
+              bonusDescription=""
+              price={50}
+              url="https://www.seasonsnovel.com"
+            />
+            <PriceCard
+              photo={studentPic}
+              title="ÉTUDIANT"
+              description="Séance individuelle de sophrologie"
+              bonusDescription="*sous présentation d'un justificatif"
+              price={50}
+              url="https://www.cdiscount.com"
             />
           </div>
+          <Button
+            sx={{ marginTop: '2.2rem', fontSize: '1.3rem', fontWeight: '700' }}
+            variant="contained"
+            href="https://www.google.com"
+          >
+            TOUS MES TARIFS
+          </Button>
+          <Divider
+            sx={{ marginTop: '3rem', width: '50%', textAlign: 'center' }}
+          />
+        </section>
+
+        <section className="meditations">
+          <h2 style={{ textAlign: 'start' }}>Des méditations guidées...</h2>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/videoseries?list=PLKAWlnLNAfJzThPsU_SguI4r6l5MHo_IJ"
+            title="YouTube video player"
+            // eslint-disable-next-line react/no-unknown-property
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          />
+          {/* <div className="yt-logo">
+            <img src="" alt="" />
+          </div> */}
+          <h2 style={{ textAlign: 'end' }}>...créées pour vous.</h2>
         </section>
       </main>
       <FooterMobile />

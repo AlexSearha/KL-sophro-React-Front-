@@ -90,3 +90,22 @@
   //   background-size: cover;
   // }
 }
+
+.costs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__prestations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.meditations {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
