@@ -13,7 +13,7 @@ function MobileMenu() {
         {(popupState) => (
           <>
             <Button variant="text" {...bindTrigger(popupState)}>
-              <MenuOutlinedIcon fontSize="medium" />
+              <MenuOutlinedIcon sx={{ color: 'black' }} fontSize="medium" />
             </Button>
             <Menu {...bindMenu(popupState)}>
               <MenuItem onClick={popupState.close}>La Sophrologie</MenuItem>

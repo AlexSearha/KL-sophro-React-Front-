@@ -1,11 +1,10 @@
-// React Router
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// MUI
 import { ThemeProvider, createTheme } from '@mui/material';
-// React Component
+import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Home from '../../pages/Home/Home';
-import MyAcccount from '../../pages/MyAccount/MyAccount';
-// CSS
+import LoginPage from '../../pages/Login/Login';
+import SignUpPage from '../../pages/SignUp/SignUp';
 import './App.scss';
 
 const theme = createTheme({
@@ -29,12 +28,22 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/moncompte" element={<MyAcccount />} />
-          </Routes>
-        </BrowserRouter>
+        <LocalizationProvider
+          dateAdapter={AdapterDayjs}
+          adapterLocale="fr"
+          localeText={
+            frFR.components.MuiLocalizationProvider.defaultProps.localeText
+          }
+        >
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/connexion" element={<LoginPage />} />
+              <Route path="/enregistrement" element={<SignUpPage />} />
+              {/* <Route path="/moncompte" element={<MyAcccount />} /> */}
+            </Routes>
+          </BrowserRouter>
+        </LocalizationProvider>
       </ThemeProvider>
     </div>
   );
