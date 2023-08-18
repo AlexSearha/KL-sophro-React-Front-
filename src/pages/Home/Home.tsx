@@ -21,6 +21,7 @@ import studentPic from '../../assets/Etudiant-e1669810949103.webp';
 import childPic from '../../assets/teen-e1669811659157.webp';
 // CSS
 import './style.scss';
+import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 
 function Home() {
   return (
@@ -207,7 +208,7 @@ function Home() {
           <h2>comment se déroule une séance ?</h2>
           <div>
             <h3>-1-</h3>
-            <ForumOutlinedIcon style={{ fontSize: '100px' }} />
+            <ForumOutlinedIcon style={{ fontSize: '100px', color: 'white' }} />
             <h4>Échanges</h4>
             <p>
               Nous faisons connaissance ou nous faisons un point sur votre
@@ -305,6 +306,7 @@ function Home() {
           </div> */}
           <h2 style={{ textAlign: 'end' }}>...créées pour vous.</h2>
         </section>
+        <FloatingButtonUp />
       </main>
       <FooterMobile />
     </>

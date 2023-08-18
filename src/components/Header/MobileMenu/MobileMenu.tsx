@@ -12,8 +12,8 @@ function MobileMenu() {
       <PopupState variant="popover" popupId="demo-popup-menu">
         {(popupState) => (
           <>
-            <Button variant="contained" {...bindTrigger(popupState)}>
-              <MenuOutlinedIcon fontSize="large" />
+            <Button variant="text" {...bindTrigger(popupState)}>
+              <MenuOutlinedIcon fontSize="medium" />
             </Button>
             <Menu {...bindMenu(popupState)}>
               <MenuItem onClick={popupState.close}>La Sophrologie</MenuItem>

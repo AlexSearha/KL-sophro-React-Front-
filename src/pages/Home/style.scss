@@ -1,3 +1,7 @@
+.main {
+  padding: 0 1rem;
+}
+
 .banner {
   display: flex;
   flex-direction: column;
@@ -17,16 +21,16 @@
   align-items: center;
   gap: 3rem;
 
+  &__div__photo {
+    max-width: 90vw;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+  }
+
   &__partone {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-
-    &__photo {
-      max-width: 90vw;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
-    }
   }
 
   &__parttwo {
@@ -75,20 +79,12 @@
 
 .therapy-organisation {
   position: relative;
-  z-index: 1;
-
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   top: 0;
-  //   left: 0;
-  //   background-image: url('https://sophro.mytechcompanion.fr/wp-content/uploads/2022/09/feuilles.webp');
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-  //   background-size: cover;
-  // }
+  background-image: url('https://sophro.mytechcompanion.fr/wp-content/uploads/2022/09/feuilles.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0 -1rem;
+  padding: 1rem 1rem;
 }
 
 .costs {

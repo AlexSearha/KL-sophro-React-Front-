@@ -8,12 +8,12 @@ import './style.scss';
 
 function MobileMyAccountMenu() {
   return (
-    <div className="dropdown-menu">
+    <div className="dropdown-account">
       <PopupState variant="popover" popupId="demo-popup-menu">
         {(popupState) => (
           <>
-            <Button variant="contained" {...bindTrigger(popupState)}>
-              <AccountCircleOutlinedIcon fontSize="large" />
+            <Button variant="text" {...bindTrigger(popupState)}>
+              <AccountCircleOutlinedIcon fontSize="medium" />
             </Button>
             <Menu {...bindMenu(popupState)}>
               <MenuItem onClick={popupState.close}>Mon compte</MenuItem>
