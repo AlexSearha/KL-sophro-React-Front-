@@ -3,9 +3,13 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Home from '../../pages/Home/Home';
+
+// Import DayJS
+import 'dayjs/locale/fr';
+
 import LoginPage from '../../pages/Login/Login';
-import SignUpPage from '../../pages/SignUp/SignUp';
-import './App.scss';
+import SignUpPage from '../../pages/SignUp/SignUp_OLD';
+import './style.scss';
 
 const theme = createTheme({
   palette: {
@@ -39,8 +43,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/connexion" element={<LoginPage />} />
-              <Route path="/enregistrement" element={<SignUpPage />} />
-              {/* <Route path="/moncompte" element={<MyAcccount />} /> */}
+              <Route path="/inscription" element={<SignUpPage />} />
             </Routes>
           </BrowserRouter>
         </LocalizationProvider>

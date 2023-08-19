@@ -6,9 +6,10 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 import './style.scss';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function MobileMyAccountMenu() {
-  const [isConnected, setIsConnected] = useState<boolean>(true);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
 
   return (
     <div className="dropdown-account">
@@ -25,10 +26,14 @@ function MobileMyAccountMenu() {
               {!isConnected ? (
                 <>
                   {' '}
-                  <MenuItem onClick={popupState.close}>Se connecter</MenuItem>
-                  <MenuItem onClick={popupState.close}>
-                    Créer un compte
-                  </MenuItem>
+                  <NavLink className="link" to="/connexion">
+                    <MenuItem onClick={popupState.close}>Se connecter</MenuItem>
+                  </NavLink>
+                  <NavLink className="link" to="/inscription">
+                    <MenuItem onClick={popupState.close}>
+                      Créer un compte
+                    </MenuItem>
+                  </NavLink>
                 </>
               ) : (
                 <>

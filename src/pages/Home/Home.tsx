@@ -7,6 +7,7 @@ import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 import FooterMobile from '../../components/Footer/Footer';
 import HeaderMobile from '../../components/Header/Header';
 import PriceCard from './PriceCard/PriceCard';
+import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 // images
 import treeImage from '../../assets/arbre2w.webp';
 import katiaPhoto from '../../assets/katia-plage-redux2-e1679909092745.webp';
@@ -21,7 +22,6 @@ import studentPic from '../../assets/Etudiant-e1669810949103.webp';
 import childPic from '../../assets/teen-e1669811659157.webp';
 // CSS
 import './style.scss';
-import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 
 function Home() {
   return (

@@ -1,12 +1,12 @@
 import { useFormik } from 'formik';
 import { validate } from 'email-validator';
+import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
 import HeaderMobile from '../../components/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
 
 import './style.scss';
-import { Link } from 'react-router-dom';
 
 function LoginPage() {
   const formik = useFormik({
@@ -15,10 +15,12 @@ function LoginPage() {
       password: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Votre email est invalide').required('Requis'),
+      email: Yup.string()
+        .email('Votre email est invalide')
+        .required('Votre e-mail est requis'),
       password: Yup.string()
         .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-        .required('Requis'),
+        .required('Votre mot de passe est requis'),
     }),
     onSubmit: (values) => {
       if (validate(values.email)) {
@@ -58,9 +60,9 @@ function LoginPage() {
           <Button variant="contained" type="submit">
             Se Connecter
           </Button>
-          <Link className="container__form-signup" to="/enregistrement">
+          <NavLink className="container__form-login" to="/inscription">
             Pas de compte ? Créér en un!
-          </Link>
+          </NavLink>
         </Box>
       </form>
       <FooterMobile />
