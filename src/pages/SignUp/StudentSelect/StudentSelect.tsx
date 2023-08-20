@@ -18,7 +18,7 @@ function StudentSelect({ ...props }: Props) {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ width: '50%' }}>
       <FormControl fullWidth>
         <InputLabel id="student-select-label">Etudiant ?</InputLabel>
         <Select

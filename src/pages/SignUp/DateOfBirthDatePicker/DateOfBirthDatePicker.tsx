@@ -18,7 +18,13 @@ function DateOfBirthDatePicker({ label, ...props }: Props) {
     }
   };
 
-  return <DatePicker label={label} onChange={handleDateChange} />;
+  return (
+    <DatePicker
+      sx={{ width: '50%' }}
+      label={label}
+      onChange={handleDateChange}
+    />
+  );
 }
 
 export default DateOfBirthDatePicker;

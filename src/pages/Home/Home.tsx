@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 // MUI
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
@@ -24,8 +25,28 @@ import childPic from '../../assets/teen-e1669811659157.webp';
 import './style.scss';
 
 function Home() {
+  const [scroll, setScroll] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log('defilement :', window.scrollY);
+      if (window.scrollY > 840) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scroll]);
+
   return (
     <>
+      <FloatingButtonUp scroll={scroll} />
       <HeaderMobile />
       <main className="main">
         <section className="banner">
@@ -306,7 +327,6 @@ function Home() {
           </div> */}
           <h2 style={{ textAlign: 'end' }}>...créées pour vous.</h2>
         </section>
-        <FloatingButtonUp />
       </main>
       <FooterMobile />
     </>

@@ -24,8 +24,7 @@ function MobileMyAccountMenu() {
             </Button>
             <Menu {...bindMenu(popupState)}>
               {!isConnected ? (
-                <>
-                  {' '}
+                <div>
                   <NavLink className="link" to="/connexion">
                     <MenuItem onClick={popupState.close}>Se connecter</MenuItem>
                   </NavLink>
@@ -34,9 +33,9 @@ function MobileMyAccountMenu() {
                       Créer un compte
                     </MenuItem>
                   </NavLink>
-                </>
+                </div>
               ) : (
-                <>
+                <div>
                   <MenuItem onClick={popupState.close}>Mon compte</MenuItem>
                   <MenuItem
                     onClick={() => {
@@ -46,7 +45,7 @@ function MobileMyAccountMenu() {
                   >
                     Se deconnecter
                   </MenuItem>
-                </>
+                </div>
               )}
             </Menu>
           </>

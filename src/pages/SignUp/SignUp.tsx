@@ -12,11 +12,11 @@ function SignUpPage() {
   return (
     <Formik
       initialValues={{
-        firstname: 'Alexis',
-        lastname: 'Mara',
-        email: 'alex@hotmail.com',
-        password: 'coucoucou',
-        checkpass: 'coucoucou',
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        checkpass: '',
         dateOfBirth: '',
         student: '',
       }}
@@ -121,11 +121,13 @@ function SignUpPage() {
                   }
                 />
               </div>
-              <DateOfBirthDatePicker
-                name="dateOfBirth"
-                label="Date de naissance"
-              />
-              <StudentSelect name="student" />
+              <div className="birth-student">
+                <DateOfBirthDatePicker
+                  name="dateOfBirth"
+                  label="Date de naissance"
+                />
+                <StudentSelect name="student" />
+              </div>
               <Button variant="contained" type="submit">
                 S&apos;inscrire
               </Button>
