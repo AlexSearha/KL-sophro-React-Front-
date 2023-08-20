@@ -29,7 +29,6 @@ function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log('defilement :', window.scrollY);
       if (window.scrollY > 840) {
         setScroll(true);
       } else {
