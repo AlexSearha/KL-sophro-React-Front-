@@ -5,6 +5,7 @@ import { Box, Button, TextField } from '@mui/material';
 import StudentSelect from './StudentSelect/StudentSelect';
 import HeaderMobile from '../../components/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
+import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
 import './style.scss';
 
 function SignUpPage() {
@@ -16,7 +17,7 @@ function SignUpPage() {
         email: 'alex@hotmail.com',
         password: 'coucoucou',
         checkpass: 'coucoucou',
-        // dateOfBirth: '',
+        dateOfBirth: '',
         student: '',
       }}
       validationSchema={Yup.object({
@@ -34,7 +35,7 @@ function SignUpPage() {
             'Les mots de passe ne correspondent pas'
           )
           .required('Confirmation mot de passe requis'),
-        // dateOfBirth: Yup.string().required('Votre age est requis'),
+        dateOfBirth: Yup.string().required('Votre age est requis'),
         student: Yup.string().required('Votre statut étudiant est requis'),
       })}
       onSubmit={(values) => {
@@ -120,10 +121,10 @@ function SignUpPage() {
                   }
                 />
               </div>
-              {/* <DatePicker
-            label="Date de naissance"
-            value={formik.values.dateOfBirth}
-          /> */}
+              <DateOfBirthDatePicker
+                name="dateOfBirth"
+                label="Date de naissance"
+              />
               <StudentSelect name="student" />
               <Button variant="contained" type="submit">
                 S&apos;inscrire

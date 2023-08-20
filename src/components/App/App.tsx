@@ -8,7 +8,7 @@ import Home from '../../pages/Home/Home';
 import 'dayjs/locale/fr';
 
 import LoginPage from '../../pages/Login/Login';
-import SignUpPage from '../../pages/SignUp/SignUp_OLD';
+import SignUpPage from '../../pages/SignUp/SignUp';
 import './style.scss';
 
 const theme = createTheme({
