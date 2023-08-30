@@ -147,6 +147,29 @@ export const apiBackEnd = createApi({
         body: bodyData,
       }),
     }),
+    // MUTATION LOGIN
+    loginPostData: builder.mutation({
+      query: (bodyData) => ({
+        url: `/login`,
+        method: 'POST',
+        body: bodyData,
+      }),
+    }),
+    // MUTATION RESET PASSWORD
+    sendEmailToResetPostData: builder.mutation({
+      query: (bodyData) => ({
+        url: `/reset-password`,
+        method: 'POST',
+        body: bodyData,
+      }),
+    }),
+    resetPasswordPostData: builder.mutation({
+      query: ({ token, bodyData }) => ({
+        url: `/reset-password/${token}`,
+        method: 'POST',
+        body: bodyData,
+      }),
+    }),
   }),
 });
 
@@ -185,6 +208,9 @@ export const {
   useUpdateProtocolPatchDataMutation,
   useGetOneProtocolGetDataMutation,
   useRemoveProtocolDeleteDataMutation,
+  useLoginPostDataMutation,
+  useSendEmailToResetPostDataMutation,
+  useResetPasswordPostDataMutation,
 } = apiBackEnd;
 
 export const { useFetchAddressDataQuery } = apiAddress;
