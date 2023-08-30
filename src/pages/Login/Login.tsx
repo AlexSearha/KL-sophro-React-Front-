@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { validate } from 'email-validator';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
 import HeaderMobile from '../../components/Header/Header';
@@ -32,7 +32,10 @@ function LoginPage() {
     <>
       <HeaderMobile />
       <form className="container" onSubmit={formik.handleSubmit}>
-        <Box className="container__form" sx={{ flexGrow: 1, mt: '1rem' }}>
+        <Box
+          className="container__form shadow"
+          sx={{ flexGrow: 1, mt: '1rem' }}
+        >
           <h2>Connexion</h2>
           <p>Veuillez vous identifier pour acceder à votre éspace</p>
           <TextField
@@ -57,14 +60,27 @@ function LoginPage() {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          <Button variant="contained" type="submit">
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            sx={{ fontWeight: '700' }}
+          >
             Se Connecter
           </Button>
-          <NavLink className="container__form-login" to="/inscription">
-            Pas de compte ? Créér en un!
-          </NavLink>
+          <Link className="forgotten-pw" to="/mdp-oublie">
+            MOT DE PASSE OUBLIÉ ?
+          </Link>
         </Box>
       </form>
+      <div className="new-client">
+        <p>Pas de compte ?</p>
+        <Link to="/inscription">
+          <Button variant="contained" sx={{ fontWeight: '700' }}>
+            S&apos;INSCRIRE
+          </Button>
+        </Link>
+      </div>
       <FooterMobile />
     </>
   );

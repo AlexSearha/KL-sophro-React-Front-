@@ -19,17 +19,18 @@ function HeaderMobile() {
         />
       </Link>
       <div className="header__buttons-container">
+        <Link to="/connexion">
+          <Button
+            variant="contained"
+            sx={{ fontSize: '0.7rem', fontWeight: '700' }}
+          >
+            Prendre RDV
+          </Button>
+        </Link>
         <div className="header__buttons">
           <MobileMyAccountMenu />
           <MobileMenu />
         </div>
-        <Button
-          variant="contained"
-          href="https://www.google.com"
-          sx={{ fontSize: '0.7rem', fontWeight: '700' }}
-        >
-          Prendre RDV
-        </Button>
       </div>
     </header>
   );

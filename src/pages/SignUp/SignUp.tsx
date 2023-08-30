@@ -46,7 +46,10 @@ function SignUpPage() {
         <>
           <HeaderMobile />
           <form className="container" onSubmit={formik.handleSubmit}>
-            <Box className="container__form" sx={{ flexGrow: 1, mt: '1rem' }}>
+            <Box
+              className="container__form shadow"
+              sx={{ flexGrow: 1, mt: '1rem' }}
+            >
               <h2>Inscription</h2>
               <p>Créer votre compte pour accédes à votre espace</p>
               <div className="names">
@@ -128,14 +131,19 @@ function SignUpPage() {
                 />
                 <StudentSelect name="student" />
               </div>
-              <Button variant="contained" type="submit">
-                S&apos;inscrire
+              <Button fullWidth variant="contained" type="submit">
+                S&apos;INSCRIRE
               </Button>
-              <Link className="container__form-signup" to="/connexion">
-                Vous êtes déjà client ? Connectez-vous !
-              </Link>
             </Box>
           </form>
+          <div className="new-client">
+            <p>Déja un compte ?</p>
+            <Link to="/connexion">
+              <Button variant="contained" sx={{ fontWeight: '700' }}>
+                SE CONNECTER
+              </Button>
+            </Link>
+          </div>
           <FooterMobile />
         </>
       )}
