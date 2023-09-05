@@ -1,30 +1,48 @@
 import { useFormik } from 'formik';
 import { validate } from 'email-validator';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
 import HeaderMobile from '../../components/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
+import { apiBackEnd } from '../../api/api';
 
 import './style.scss';
+import useUser from '../../store/store';
 
 function LoginPage() {
+  const [isConnected, UpdateIsConnected] = useUser((state) => [
+    state.isConnected,
+    state.UpdateIsConnected,
+  ]);
+
+  const navigate = useNavigate();
+
+  const fetchLogin = useMutation({
+    mutationFn: async (newTodo) => {
+      const result = await apiBackEnd.post('/login', newTodo);
+      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data.accessToken}`;
+    },
+  });
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'johndoe@hotmail.fr',
+      password: 'coucou',
     },
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Votre email est invalide')
         .required('Votre e-mail est requis'),
       password: Yup.string()
-        .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+        // .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
         .required('Votre mot de passe est requis'),
     }),
     onSubmit: (values) => {
       if (validate(values.email)) {
-        alert(JSON.stringify(values, null, 2));
+        fetchLogin.mutate(values);
+        UpdateIsConnected(true);
+        navigate('/');
       }
     },
   });

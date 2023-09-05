@@ -26,7 +26,7 @@ import './style.scss';
 
 function Home() {
   const [scroll, setScroll] = useState<boolean>(false);
-
+  // Scroll to the top smoothly
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 650) {
@@ -311,7 +311,7 @@ function Home() {
 
         <section className="meditations">
           <h2 style={{ textAlign: 'start' }}>Des méditations guidées...</h2>
-          <iframe
+          {/* <iframe
             width="560"
             height="315"
             src="https://www.youtube.com/embed/videoseries?list=PLKAWlnLNAfJzThPsU_SguI4r6l5MHo_IJ"
@@ -320,7 +320,7 @@ function Home() {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-          />
+          /> */}
           {/* <div className="yt-logo">
             <img src="" alt="" />
           </div> */}

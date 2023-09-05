@@ -2,23 +2,30 @@ import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import StudentSelect from './StudentSelect/StudentSelect';
 import HeaderMobile from '../../components/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
 import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
 import './style.scss';
+import { apiBackEnd } from '../../api/api';
 
 function SignUpPage() {
+  const fetchClient = useMutation({
+    mutationFn: () => {
+      return apiBackEnd.get('/client');
+    },
+  });
   return (
     <Formik
       initialValues={{
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-        checkpass: '',
-        dateOfBirth: '',
-        student: '',
+        firstname: 'michel',
+        lastname: 'michel',
+        email: 'michel@hotmail.fr',
+        password: 'coucoucou',
+        checkpass: 'coucoucou',
+        dateOfBirth: '15/07/1987',
+        student: 'non',
       }}
       validationSchema={Yup.object({
         firstname: Yup.string().required('Votre prénom est requis'),
@@ -39,7 +46,8 @@ function SignUpPage() {
         student: Yup.string().required('Votre statut étudiant est requis'),
       })}
       onSubmit={(values) => {
-        alert(JSON.stringify(values, null, 2));
+        fetchClient.mutate();
+        // alert(JSON.stringify(values, null, 2));
       }}
     >
       {(formik) => (

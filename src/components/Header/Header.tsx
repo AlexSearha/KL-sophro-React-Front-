@@ -5,7 +5,6 @@ import MobileMenu from './MobileMenu/MobileMenu';
 import MobileMyAccountMenu from './MobileMyAccountMenu/MobileMyAccountMenu';
 
 import Logo from '../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
-
 import './style.scss';
 
 function HeaderMobile() {

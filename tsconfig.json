@@ -20,6 +20,6 @@
     "vite.config.ts",
     ".eslintrc.cjs",
     "src"
-  ],
+, "_OLD/fetch.ts", "_OLD/hooks"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
