@@ -1,21 +1,30 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, TextField } from '@mui/material';
+import { Alert, Box, Button, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import StudentSelect from './StudentSelect/StudentSelect';
 import HeaderMobile from '../../components/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
 import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
-import './style.scss';
 import { apiBackEnd } from '../../api/api';
 
+import './style.scss';
+
 function SignUpPage() {
-  const fetchClient = useMutation({
-    mutationFn: () => {
-      return apiBackEnd.get('/client');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const fetchSignUp = useMutation({
+    mutationFn: (data) => {
+      return apiBackEnd.post('/client', data);
     },
   });
+
+  function handleSubmit(values) {
+    fetchSignUp.mutate(values);
+  }
+
   return (
     <Formik
       initialValues={{
@@ -46,8 +55,7 @@ function SignUpPage() {
         student: Yup.string().required('Votre statut étudiant est requis'),
       })}
       onSubmit={(values) => {
-        fetchClient.mutate();
-        // alert(JSON.stringify(values, null, 2));
+        handleSubmit(values);
       }}
     >
       {(formik) => (
@@ -139,7 +147,15 @@ function SignUpPage() {
                 />
                 <StudentSelect name="student" />
               </div>
-              <Button fullWidth variant="contained" type="submit">
+              <Alert className="error-alert" variant="filled" severity="error">
+                Utilisateur déja inscrit
+              </Alert>
+              <Button
+                fullWidth
+                sx={{ fontWeight: 700 }}
+                variant="contained"
+                type="submit"
+              >
                 S&apos;INSCRIRE
               </Button>
             </Box>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { validate } from 'email-validator';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,9 +23,17 @@ function LoginPage() {
   const fetchLogin = useMutation({
     mutationFn: async (newTodo) => {
       const result = await apiBackEnd.post('/login', newTodo);
-      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data.accessToken}`;
+      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data}`;
     },
   });
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
+
   const formik = useFormik({
     initialValues: {
       email: 'johndoe@hotmail.fr',

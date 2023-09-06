@@ -10,6 +10,8 @@ import 'dayjs/locale/fr';
 import LoginPage from '../../pages/Login/Login';
 import SignUpPage from '../../pages/SignUp/SignUp';
 import BackOfficePage from '../../pages/BackOffice/BackOffice';
+import MyAcccount from '../../pages/MyAccount/MyAccount';
+import Test from '../../pages/Test/Test';
 import './style.scss';
 
 const theme = createTheme({
@@ -45,7 +47,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/connexion" element={<LoginPage />} />
               <Route path="/inscription" element={<SignUpPage />} />
+              <Route path="/mon-compte" element={<MyAcccount />} />
               <Route path="/back-office" element={<BackOfficePage />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </BrowserRouter>
         </LocalizationProvider>

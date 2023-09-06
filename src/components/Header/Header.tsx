@@ -10,7 +10,7 @@ import './style.scss';
 function HeaderMobile() {
   return (
     <header className="header">
-      <Link to="/">
+      <Link to="/test">
         <img
           className="header__logo"
           src={Logo}

@@ -9,6 +9,10 @@ import FooterMobile from '../../components/Footer/Footer';
 import HeaderMobile from '../../components/Header/Header';
 import PriceCard from './PriceCard/PriceCard';
 import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
+// STORE
+import useUser from '../../store/store';
+// API
+import regenerateAccessToken from '../../utils/utilsFunctions';
 // images
 import treeImage from '../../assets/arbre2w.webp';
 import katiaPhoto from '../../assets/katia-plage-redux2-e1679909092745.webp';
@@ -26,6 +30,10 @@ import './style.scss';
 
 function Home() {
   const [scroll, setScroll] = useState<boolean>(false);
+  const [isConnected, UpdateIsConnected] = useUser((state) => [
+    state.isConnected,
+    state.UpdateIsConnected,
+  ]);
   // Scroll to the top smoothly
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +50,21 @@ function Home() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scroll]);
+
+  useEffect(() => {
+    async function test() {
+      const isTokenValid = await regenerateAccessToken();
+      if (isTokenValid) {
+        UpdateIsConnected(true);
+        console.log('USER LOGIN');
+      } else {
+        UpdateIsConnected(false);
+        console.log('USER LOGOUT');
+      }
+    }
+    test();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
 
   return (
     <>
