@@ -6,7 +6,7 @@ import { Button, Divider } from '@mui/material';
 import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 // React Component
 import FooterMobile from '../../components/Footer/Footer';
-import HeaderMobile from '../../components/Header/Header';
+import HeaderMobile from '../../components/Layouts/Header/Header';
 import PriceCard from './PriceCard/PriceCard';
 import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 // STORE
@@ -51,6 +51,7 @@ function Home() {
     };
   }, [scroll]);
 
+  // RegenerateTokens
   useEffect(() => {
     async function test() {
       const isTokenValid = await regenerateAccessToken();

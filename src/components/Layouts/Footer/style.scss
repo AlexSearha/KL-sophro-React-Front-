@@ -1,0 +1,84 @@
+@use '../../../styles/variables' as v;
+
+.footer {
+  background-color: v.$color-third;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  // align-items: center;
+
+  &__content {
+    display: flex;
+    padding: 3rem 1rem;
+  }
+
+  &__need-appointment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: 33.33%;
+  }
+
+  &__links-menu {
+    display: flex;
+    flex-direction: column;
+    width: 33.33%;
+  }
+
+  &__copyrights {
+    display: flex;
+    align-items: center;
+  }
+
+  & p {
+    color: white;
+    width: 33.33%;
+    padding: 0 1.5rem;
+    font-style: italic;
+  }
+
+  & h3 {
+    color: v.$color-text-white;
+  }
+
+  &__credits {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    &__socials {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 30%;
+      gap: 1.5rem;
+    }
+
+    & p {
+      font-size: 0.9rem;
+      width: 70%;
+      font-style: normal;
+    }
+  }
+}
+
+.fb-icon,
+.instagram-icon,
+.yt-icon {
+  color: white;
+  transition: all 1s ease;
+}
+
+.fb-icon:hover {
+  color: #3b5998;
+}
+
+.instagram-icon:hover {
+  color: #dd2a7b;
+}
+
+.yt-icon:hover {
+  color: #ff0000;
+}

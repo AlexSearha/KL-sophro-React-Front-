@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
-import HeaderMobile from '../../components/Header/Header';
+import HeaderMobile from '../../components/Layouts/Header/Header';
 import FooterMobile from '../../components/Footer/Footer';
 import { apiBackEnd } from '../../api/api';
 

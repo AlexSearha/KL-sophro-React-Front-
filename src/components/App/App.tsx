@@ -1,18 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// MUI
 import { ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Home from '../../pages/Home/Home';
-
 // Import DayJS
 import 'dayjs/locale/fr';
-
+// PAGES
+import Home from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
 import SignUpPage from '../../pages/SignUp/SignUp';
 import BackOfficePage from '../../pages/BackOffice/BackOffice';
-import MyAcccount from '../../pages/MyAccount/MyAccount';
-import Test from '../../pages/Test/Test';
+import MyAccountLayout from '../../pages/MyAccount/MyAccountLayout';
+// CSS
 import './style.scss';
+import Test from '../../pages/Test/Test';
+import MyAcccount from '../../pages/MyAccount/Pages/MyAccount';
+import Test2 from '../../pages/Test/Test2';
 
 const theme = createTheme({
   palette: {
@@ -44,12 +47,12 @@ function App() {
         >
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<Home />} />
               <Route path="/connexion" element={<LoginPage />} />
-              <Route path="/inscription" element={<SignUpPage />} />
-              <Route path="/mon-compte" element={<MyAcccount />} />
-              <Route path="/back-office" element={<BackOfficePage />} />
-              <Route path="/test" element={<Test />} />
+              <Route path="/inscription" element={<SignUpPage />} /> */}
+              <Route path="/" element={<MyAccountLayout />} />
+              <Route index element={<Test />} />
+              {/* <Route path="infos" element={<Test2 />} /> */}
             </Routes>
           </BrowserRouter>
         </LocalizationProvider>

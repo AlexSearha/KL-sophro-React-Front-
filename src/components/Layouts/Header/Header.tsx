@@ -4,13 +4,13 @@ import { Button } from '@mui/material';
 import MobileMenu from './MobileMenu/MobileMenu';
 import MobileMyAccountMenu from './MobileMyAccountMenu/MobileMyAccountMenu';
 
-import Logo from '../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
+import Logo from '../../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
 import './style.scss';
 
 function HeaderMobile() {
   return (
     <header className="header">
-      <Link to="/test">
+      <Link to="/">
         <img
           className="header__logo"
           src={Logo}
