@@ -4,7 +4,6 @@ import MyAccountMenu from '../../../pages/MyAccount/Settings/AccountSettingsMenu
 import FooterMobile from '../Footer/Footer';
 // CSS
 import './style.scss';
-import AccountContent from '../../../pages/MyAccount/Content/AccountContent';
 
 function MyAccountLayout() {
   return (
@@ -13,7 +12,7 @@ function MyAccountLayout() {
       <div className="container">
         <div className="container__main">
           <div className="container__menu bg-white">
-            <h3>Votre compte</h3>
+            <h3>Mon Compte</h3>
             <MyAccountMenu />
           </div>
           <div className="container__inputs bg-white">

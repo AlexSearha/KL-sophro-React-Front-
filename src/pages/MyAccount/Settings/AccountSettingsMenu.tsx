@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 // ROUTER
 import { useNavigate } from 'react-router';
 // MUI
@@ -12,8 +13,10 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import LogoutIcon from '@mui/icons-material/Logout';
+// API
+import { apiBackEnd } from '../../../api/api';
 // STORE
-import useUser from '../../../store/store';
+import { useUser } from '../../../store/store';
 // CSS
 import './style.scss';
 
@@ -22,11 +25,14 @@ function MyAccountMenu() {
     state.isConnected,
     state.UpdateIsConnected,
   ]);
+  const navigate = useNavigate();
 
-  const handleClickLogout = () => {
+  function handleClickLogout() {
+    apiBackEnd.defaults.headers.common.Authorization = null;
+    apiBackEnd.get('/logout');
     UpdateIsConnected(false);
-    console.log(isConnected);
-  };
+    navigate('/');
+  }
 
   const accountTheme = createTheme({
     palette: {
@@ -39,19 +45,34 @@ function MyAccountMenu() {
     },
   });
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isConnected) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
   return (
     <ThemeProvider theme={accountTheme}>
       <nav className="setting-menu">
         <ul className="setting-menu__ul">
           <li>
             <Button
-              startIcon={<FolderOpenIcon style={{ fontSize: 30 }} />}
+              startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
               onClick={() => navigate('/mon-compte')}
             >
-              Dossier
+              rendez-vous
+            </Button>
+          </li>
+          <li>
+            <Button
+              startIcon={<FolderOpenIcon style={{ fontSize: 30 }} />}
+              className="account-sidemenu"
+              variant="text"
+              onClick={() => navigate('/mon-compte/seances')}
+            >
+              Seances
             </Button>
           </li>
           <li>
@@ -59,18 +80,9 @@ function MyAccountMenu() {
               startIcon={<ManageAccountsIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
+              onClick={() => navigate('/mon-compte/parametres')}
             >
               Informations
-            </Button>
-          </li>
-          <li>
-            <Button
-              startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
-              className="account-sidemenu"
-              variant="text"
-              onClick={() => navigate('/mon-compte/test2')}
-            >
-              rendez-vous
             </Button>
           </li>
           <li>
@@ -78,7 +90,7 @@ function MyAccountMenu() {
               startIcon={<LogoutIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
-              onClick={handleClickLogout}
+              onClick={() => handleClickLogout()}
             >
               Se deconnecter
             </Button>

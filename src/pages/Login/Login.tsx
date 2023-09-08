@@ -9,7 +9,7 @@ import HeaderMobile from '../../components/Layouts/Header/Header';
 import { apiBackEnd } from '../../api/api';
 
 import './style.scss';
-import useUser from '../../store/store';
+import { useUser } from '../../store/store';
 import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 function LoginPage() {
@@ -29,7 +29,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (isConnected) {
-      navigate('/');
+      navigate('/mon-compte');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
@@ -51,7 +51,6 @@ function LoginPage() {
       if (validate(values.email)) {
         fetchLogin.mutate(values);
         UpdateIsConnected(true);
-        navigate('/');
       }
     },
   });

@@ -12,7 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useMutation } from '@tanstack/react-query';
 import { apiBackEnd } from '../../../../api/api';
 // STORE
-import useUser from '../../../../store/store';
+import { useUser } from '../../../../store/store';
 // CSS
 import './style.scss';
 
