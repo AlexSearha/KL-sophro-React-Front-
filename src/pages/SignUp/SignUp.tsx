@@ -11,12 +11,12 @@ import useUser from '../../store/store';
 // COMPONENTS
 import StudentSelect from './StudentSelect/StudentSelect';
 import HeaderMobile from '../../components/Layouts/Header/Header';
-import FooterMobile from '../../components/Footer/Footer';
 import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
 // API
 import { apiBackEnd } from '../../api/api';
 // CSS
 import './style.scss';
+import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 interface FormValues {
   firstname: string;
@@ -92,7 +92,6 @@ function SignUpPage() {
     >
       {(formik) => (
         <>
-          <HeaderMobile />
           <form className="container" onSubmit={formik.handleSubmit}>
             <Box
               className="container__form shadow"
@@ -200,7 +199,6 @@ function SignUpPage() {
               </Button>
             </Link>
           </div>
-          <FooterMobile />
         </>
       )}
     </Formik>

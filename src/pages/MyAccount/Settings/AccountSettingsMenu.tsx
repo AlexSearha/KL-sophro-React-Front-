@@ -49,6 +49,7 @@ function MyAccountMenu() {
               startIcon={<FolderOpenIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
+              onClick={() => navigate('/mon-compte')}
             >
               Dossier
             </Button>
@@ -67,7 +68,7 @@ function MyAccountMenu() {
               startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
-              onClick={() => navigate('/test')}
+              onClick={() => navigate('/mon-compte/test2')}
             >
               rendez-vous
             </Button>

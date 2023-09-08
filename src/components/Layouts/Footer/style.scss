@@ -4,9 +4,13 @@
   background-color: v.$color-third;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   padding-bottom: 0.6rem;
-  // align-items: center;
+
+  &__container {
+    max-width: 1250px;
+  }
 
   &__content {
     display: flex;

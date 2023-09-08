@@ -6,11 +6,11 @@ import { useMutation } from '@tanstack/react-query';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
 import HeaderMobile from '../../components/Layouts/Header/Header';
-import FooterMobile from '../../components/Footer/Footer';
 import { apiBackEnd } from '../../api/api';
 
 import './style.scss';
 import useUser from '../../store/store';
+import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 function LoginPage() {
   const [isConnected, UpdateIsConnected] = useUser((state) => [
@@ -57,7 +57,6 @@ function LoginPage() {
   });
   return (
     <>
-      <HeaderMobile />
       <form className="container" onSubmit={formik.handleSubmit}>
         <Box
           className="container__form shadow"
@@ -108,7 +107,6 @@ function LoginPage() {
           </Button>
         </Link>
       </div>
-      <FooterMobile />
     </>
   );
 }
