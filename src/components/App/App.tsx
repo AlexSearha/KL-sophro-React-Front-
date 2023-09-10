@@ -1,12 +1,17 @@
-// MUI
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// ROUTER DOM
-import RouterDom from '../../configs/router';
+import Home from '../../pages/Home/Home';
+
 // Import DayJS
 import 'dayjs/locale/fr';
-// CSS
+
+import LoginPage from '../../pages/Login/Login';
+import SignUpPage from '../../pages/SignUp/SignUp';
+import BackOfficePage from '../../pages/BackOffice/BackOffice';
+import MyAcccount from '../../pages/MyAccount/MyAccount';
+import Test from '../../pages/Test/Test';
 import './style.scss';
 
 const theme = createTheme({
@@ -37,7 +42,16 @@ function App() {
             frFR.components.MuiLocalizationProvider.defaultProps.localeText
           }
         >
-          <RouterDom />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/connexion" element={<LoginPage />} />
+              <Route path="/inscription" element={<SignUpPage />} />
+              <Route path="/mon-compte" element={<MyAcccount />} />
+              <Route path="/back-office" element={<BackOfficePage />} />
+              <Route path="/test" element={<Test />} />
+            </Routes>
+          </BrowserRouter>
         </LocalizationProvider>
       </ThemeProvider>
     </div>

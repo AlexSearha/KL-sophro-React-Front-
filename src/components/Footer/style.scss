@@ -1,0 +1,55 @@
+@use '../../styles/variables' as v;
+
+.footer {
+  background-color: v.$color-third;
+
+  &__content {
+    padding: 3rem 0;
+  }
+
+  & p {
+    color: white;
+    font-style: italic;
+  }
+
+  & h3 {
+    color: v.$color-text-white;
+  }
+}
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  & p {
+    font-size: 0.9rem;
+    font-style: normal;
+  }
+}
+
+.fb-icon,
+.instagram-icon,
+.yt-icon {
+  color: white;
+  transition: all 1s ease;
+}
+
+.fb-icon:hover {
+  color: #3b5998;
+}
+
+.instagram-icon:hover {
+  color: #dd2a7b;
+}
+
+.yt-icon:hover {
+  color: #ff0000;
+}

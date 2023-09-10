@@ -4,7 +4,7 @@ import './style.scss';
 function LinksMenu() {
   const theme = useTheme();
   return (
-    <div className="footer__links-menu">
+    <div className="links-menu">
       <Link
         color={theme.palette.primary.contrastText}
         underline="hover"

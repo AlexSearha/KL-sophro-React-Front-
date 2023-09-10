@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-// MUI
+//
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,13 +7,12 @@ import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// API
+
 import { useMutation } from '@tanstack/react-query';
-import { apiBackEnd } from '../../../../api/api';
+import { apiBackEnd } from '../../../api/api';
 // STORE
-import { useUser } from '../../../../store/store';
-// CSS
+import useUser from '../../../store/store';
+
 import './style.scss';
 
 function MobileMyAccountMenu() {
@@ -38,14 +37,10 @@ function MobileMyAccountMenu() {
         {(popupState) => (
           <>
             <Button variant="text" {...bindTrigger(popupState)}>
-              {isConnected ? (
-                <AccountCircleIcon fontSize="medium" sx={{ color: 'green' }} />
-              ) : (
-                <AccountCircleOutlinedIcon
-                  sx={{ color: 'black' }}
-                  fontSize="medium"
-                />
-              )}
+              <AccountCircleOutlinedIcon
+                sx={{ color: 'black' }}
+                fontSize="medium"
+              />
             </Button>
             <Menu {...bindMenu(popupState)}>
               {!isConnected ? (
@@ -61,12 +56,7 @@ function MobileMyAccountMenu() {
                 </div>
               ) : (
                 <div>
-                  <MenuItem
-                    onClick={() => {
-                      navigate('/mon-compte');
-                      popupState.close;
-                    }}
-                  >
+                  <MenuItem onClick={popupState.close}>
                     <FolderSharedIcon sx={{ marginRight: 1 }} /> Mon compte
                   </MenuItem>
                   <MenuItem

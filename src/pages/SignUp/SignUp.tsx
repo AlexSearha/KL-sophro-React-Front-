@@ -1,39 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-// FORMIK
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-// MUI
 import { Alert, Box, Button, TextField } from '@mui/material';
-// STORE
 import { useMutation } from '@tanstack/react-query';
-import { useUser } from '../../store/store';
-// COMPONENTS
 import StudentSelect from './StudentSelect/StudentSelect';
+import HeaderMobile from '../../components/Header/Header';
+import FooterMobile from '../../components/Footer/Footer';
 import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
-// API
 import { apiBackEnd } from '../../api/api';
-// CSS
-import './style.scss';
 
-interface FormValues {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  checkpass: string;
-  dateOfBirth: string;
-  student: string;
-}
+import './style.scss';
 
 function SignUpPage() {
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isConnected, UpdateIsConnected] = useUser((state) => [
-    state.isConnected,
-    state.UpdateIsConnected,
-  ]);
-
-  const navigate = useNavigate();
 
   const fetchSignUp = useMutation({
     mutationFn: (data) => {
@@ -41,33 +21,21 @@ function SignUpPage() {
     },
   });
 
-  function fetchSubmit(values: FormValues) {
+  function handleSubmit(values) {
     fetchSignUp.mutate(values);
   }
-  // Redirect to HOME if not connected
-  useEffect(() => {
-    if (isConnected) {
-      navigate('/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected]);
 
-  const initialValues: FormValues = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    checkpass: '',
-    dateOfBirth: '',
-    student: '',
-  };
-
-  const handleSubmit = (values: FormValues) => {
-    fetchSubmit(values);
-  };
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        firstname: 'michel',
+        lastname: 'michel',
+        email: 'michel@hotmail.fr',
+        password: 'coucoucou',
+        checkpass: 'coucoucou',
+        dateOfBirth: '15/07/1987',
+        student: 'non',
+      }}
       validationSchema={Yup.object({
         firstname: Yup.string().required('Votre prénom est requis'),
         lastname: Yup.string().required('Votre nom est requis'),
@@ -86,10 +54,13 @@ function SignUpPage() {
         dateOfBirth: Yup.string().required('Votre age est requis'),
         student: Yup.string().required('Votre statut étudiant est requis'),
       })}
-      onSubmit={handleSubmit}
+      onSubmit={(values) => {
+        handleSubmit(values);
+      }}
     >
       {(formik) => (
         <>
+          <HeaderMobile />
           <form className="container" onSubmit={formik.handleSubmit}>
             <Box
               className="container__form shadow"
@@ -197,6 +168,7 @@ function SignUpPage() {
               </Button>
             </Link>
           </div>
+          <FooterMobile />
         </>
       )}
     </Formik>
