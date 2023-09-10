@@ -13,6 +13,14 @@ const useUserNavigation = create<UserNavigation>()((set) => ({
 
 const useUserInformations = create<UserInformations>()((set) => ({
   userInfos: { id: null, firstname: '', lastname: '', email: '' },
-  UpdateUserInfos: () => set(() => ({ userInfos })),
+  UpdateUserInfos: (value) =>
+    set(() => ({
+      userInfos: {
+        id: value.id,
+        firstname: value.firstname,
+        lastname: value.lastname,
+        email: value.email,
+      },
+    })),
 }));
 export { useUser, useUserNavigation, useUserInformations };

@@ -9,10 +9,9 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // API
-import { useMutation } from '@tanstack/react-query';
 import { apiBackEnd } from '../../../../api/api';
 // STORE
-import { useUser } from '../../../../store/store';
+import { useUser, useUserInformations } from '../../../../store/store';
 // CSS
 import './style.scss';
 
@@ -21,16 +20,20 @@ function MobileMyAccountMenu() {
     state.isConnected,
     state.UpdateIsConnected,
   ]);
+  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
+    state.userInfos,
+    state.UpdateUserInfos,
+  ]);
+
   const navigate = useNavigate();
 
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      apiBackEnd.defaults.headers.common.Authorization = null;
-      await apiBackEnd.get('/logout');
-      UpdateIsConnected(false);
-      navigate('/');
-    },
-  });
+  async function fetchLoggout() {
+    apiBackEnd.defaults.headers.common.Authorization = null;
+    await apiBackEnd.get('/logout');
+    UpdateUserInfos({ id: null, firstname: '', lastname: '', email: '' });
+    UpdateIsConnected(false);
+    navigate('/');
+  }
 
   return (
     <div className="dropdown-account">
@@ -71,7 +74,7 @@ function MobileMyAccountMenu() {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      logoutMutation.mutate();
+                      fetchLoggout();
                       popupState.close;
                     }}
                   >

@@ -9,13 +9,17 @@ import HeaderMobile from '../../components/Layouts/Header/Header';
 import { apiBackEnd } from '../../api/api';
 
 import './style.scss';
-import { useUser } from '../../store/store';
+import { useUser, useUserInformations } from '../../store/store';
 import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 function LoginPage() {
   const [isConnected, UpdateIsConnected] = useUser((state) => [
     state.isConnected,
     state.UpdateIsConnected,
+  ]);
+  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
+    state.userInfos,
+    state.UpdateUserInfos,
   ]);
 
   const navigate = useNavigate();
@@ -24,6 +28,7 @@ function LoginPage() {
     mutationFn: async (newTodo) => {
       const result = await apiBackEnd.post('/login', newTodo);
       apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data}`;
+      UpdateUserInfos(result.data.user);
     },
   });
 

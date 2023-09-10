@@ -2,13 +2,7 @@ import { useEffect } from 'react';
 // ROUTER
 import { useNavigate } from 'react-router';
 // MUI
-import {
-  Button,
-  Stack,
-  ThemeProvider,
-  createTheme,
-  useTheme,
-} from '@mui/material';
+import { Button, ThemeProvider, createTheme } from '@mui/material';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
