@@ -1,4 +1,6 @@
+// REACT
 import { Outlet } from 'react-router-dom';
+// OUTLETS
 import HeaderMobile from '../Header/Header';
 import MyAccountMenu from '../../../pages/MyAccount/Settings/AccountSettingsMenu';
 import FooterMobile from '../Footer/Footer';

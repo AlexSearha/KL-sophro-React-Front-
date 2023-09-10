@@ -9,7 +9,7 @@ import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 import PriceCard from './PriceCard/PriceCard';
 import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 // STORE
-import { useUser } from '../../store/store';
+import { useUser, useUserInformations } from '../../store/store';
 // API
 import regenerateAccessToken from '../../utils/utilsFunctions';
 // images
@@ -34,6 +34,10 @@ function Home() {
     state.isConnected,
     state.UpdateIsConnected,
   ]);
+  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
+    state.userInfos,
+    state.UpdateUserInfos,
+  ]);
   // Scroll to the top smoothly
   useEffect(() => {
     const handleScroll = () => {
@@ -57,10 +61,10 @@ function Home() {
       const isTokenValid = await regenerateAccessToken();
       if (isTokenValid) {
         UpdateIsConnected(true);
-        console.log('USER LOGIN');
+        console.log('USER IS LOGGED');
       } else {
         UpdateIsConnected(false);
-        console.log('USER LOGOUT');
+        console.log('USER IS LOGGED OUT');
       }
     }
     test();

@@ -14,8 +14,9 @@ export interface UserInformations {
     id: number | null;
     firstname?: string | null;
     lastname: string;
+    email: string;
   };
-  UpdateUserInfos: () => void;
+  UpdateUserInfos: (value: any) => void;
 }
 
 export interface UserNavigation {

@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import './style.scss';
+import { Button } from '@mui/material';
 
 interface BookStateProp {
   bookState: string;
   state: string;
+  report?: string | null;
 }
 
-function Appointment({ bookState, state }: BookStateProp) {
+function Appointment({ bookState, state, report }: BookStateProp) {
   const appointmentState = `appointment__part-two__state ${state}`;
 
   return (
@@ -28,6 +31,18 @@ function Appointment({ bookState, state }: BookStateProp) {
             <div className="appointment__part-one__hours-hour">
               11:00 à 12h00
             </div>
+          </div>
+          <div className="appointment__part-one__raport">
+            {report ? (
+              <Button
+                sx={{ fontSize: 15, textTransform: 'capitalize' }}
+                variant="contained"
+                endIcon={<FileDownloadIcon sx={{ color: 'white' }} />}
+                onClick={() => console.log('telechargement du PDF')}
+              >
+                {report}
+              </Button>
+            ) : null}
           </div>
         </div>
         <div className="appointment__part-two">
