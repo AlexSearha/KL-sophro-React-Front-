@@ -1,14 +1,20 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 // MUI
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 // TYPES
-import { TabPanelProps } from '../../../../@types';
+import { AppointmentProps, TabPanelProps } from '../../../../@types';
+// COMPONENTS
+import Appointment from './Appointment/Appointment';
+import AppointmentForm from './AppointmentForm/AppointmentForm';
+// API
+import { getAllAppointments } from '../../../../api/api';
+// STORE
+import { useUser, useUserInformations } from '../../../../store/store';
 // CSS
 import './style.scss';
-import Appointment from './Appointment/Appointment';
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -38,11 +44,33 @@ function a11yProps(index: number) {
 }
 
 function AppointmentEvent() {
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = useState(1);
+  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
+    state.userInfos,
+    state.UpdateUserInfos,
+  ]);
+  const [userAppointments, UpdateUserAppointments] = useUser((state) => [
+    state.appointments,
+    state.UpdateAppointments,
+  ]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    async function test() {
+      if (userInfos.id) {
+        const appointments = await getAllAppointments(userInfos.id);
+        if (Array.isArray(appointments)) {
+          // We ensure that appointment is a an array to pleased Typescript
+          UpdateUserAppointments(appointments);
+        }
+      }
+    }
+    test();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfos.id]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -75,18 +103,15 @@ function AppointmentEvent() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Appointment bookState="terminé" state="done" report="rapport" />
+        test 1
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Appointment bookState="confirmé" state="booked" report="rapport" />
-        <Appointment bookState="annulé" state="cancelled" report="rapport" />
-        <Appointment bookState="annulé" state="cancelled" report="" />
-        <Appointment bookState="annulé" state="cancelled" report="" />
-        <Appointment bookState="annulé" state="cancelled" report="" />
-        <Appointment bookState="annulé" state="cancelled" report="rapport" />
+        {userAppointments?.map((item: AppointmentProps) => (
+          <Appointment item={item} key={item.id} />
+        ))}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <AppointmentForm />
       </CustomTabPanel>
     </Box>
   );

@@ -6,7 +6,9 @@ export interface TestProp {
 // ZUSTAND States
 export interface UserState {
   isConnected: boolean;
+  appointments?: AppointmentProps[];
   UpdateIsConnected: (value: boolean) => void;
+  UpdateAppointments: (value: AppointmentProps[]) => void;
 }
 
 export interface UserInformations {
@@ -28,4 +30,41 @@ export interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+export interface UserProps {
+  id: number;
+  firstname: string;
+  lastname: string;
+  password: string;
+  email: string;
+  dateofbirth: string;
+  address: string;
+  photo: string;
+  phone_number: string;
+  student: boolean;
+  newsletter: boolean;
+  notification: boolean;
+  confirmed: boolean;
+  role_id: number;
+  created_at: string;
+  updated_at: string;
+  appointments: Appointment[];
+}
+
+export interface AppointmentProps {
+  id: number;
+  date: string;
+  status: string;
+  online: boolean;
+  reporting: string;
+  exercices: string;
+  paid: boolean;
+  paiment_due: string;
+  paiment_value: string;
+  client_id: number;
+  doctor_id: number;
+  protocol_id: number;
+  created_at: string;
+  updated_at: string;
 }

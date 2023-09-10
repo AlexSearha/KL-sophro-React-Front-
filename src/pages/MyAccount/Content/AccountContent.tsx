@@ -1,5 +1,4 @@
 // STORE
-import { useEffect } from 'react';
 import { useUserInformations } from '../../../store/store';
 // COMPONENT
 import AppointmentEvent from './AppointmentEvent/AppointmentEvent';

@@ -1,28 +1,24 @@
+// REACT
 import { Link } from 'react-router-dom';
+// MUI
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import './style.scss';
 import { Button } from '@mui/material';
+// TYPES
+import { AppointmentProps } from '../../../../../@types';
+// CSS
+import './style.scss';
 
-interface BookStateProp {
-  bookState: string;
-  state: string;
-  report?: string | null;
-}
-
-function Appointment({ bookState, state, report }: BookStateProp) {
-  const appointmentState = `appointment__part-two__state ${state}`;
+function Appointment({ item }: { item: AppointmentProps }) {
+  const { id, status, exercices } = item;
+  const appointmentState = `appointment__part-two__state ${status}`;
 
   return (
     <div className="appointment">
       <div className="appointment__main">
         <div className="appointment__part-one">
           <div className="appointment__part-one__date">
-            <div className="appointment__part-one__date-day">29</div>
-            <div className="appointment__part-one__date-month">
-              Sept
-              <br />
-              2023
-            </div>
+            <div className="appointment__part-one__date-day">{id}</div>
+            <div className="appointment__part-one__date-month">Sept 2023</div>
           </div>
           <div className="appointment__part-one__hours">
             <div className="appointment__part-one__hours-title">
@@ -33,22 +29,22 @@ function Appointment({ bookState, state, report }: BookStateProp) {
             </div>
           </div>
           <div className="appointment__part-one__raport">
-            {report ? (
+            {exercices ? (
               <Button
                 sx={{ fontSize: 15, textTransform: 'capitalize' }}
                 variant="contained"
                 endIcon={<FileDownloadIcon sx={{ color: 'white' }} />}
                 onClick={() => console.log('telechargement du PDF')}
               >
-                {report}
+                Rapport
               </Button>
             ) : null}
           </div>
         </div>
         <div className="appointment__part-two">
           <div>
-            <div className={appointmentState}>{bookState}</div>
-            {state === 'cancelled' || state === 'done' ? null : (
+            <div className={appointmentState}>{status}</div>
+            {status === 'cancelled' || status === 'done' ? null : (
               <Link className="appointment--modify" to="/">
                 modifier
               </Link>

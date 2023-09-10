@@ -51,6 +51,7 @@ function MyAccountMenu() {
         <ul className="setting-menu__ul">
           <li>
             <Button
+              sx={{ textTransform: 'capitalize' }}
               startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
@@ -61,16 +62,7 @@ function MyAccountMenu() {
           </li>
           <li>
             <Button
-              startIcon={<FolderOpenIcon style={{ fontSize: 30 }} />}
-              className="account-sidemenu"
-              variant="text"
-              onClick={() => navigate('/mon-compte/seances')}
-            >
-              Seances
-            </Button>
-          </li>
-          <li>
-            <Button
+              sx={{ textTransform: 'capitalize' }}
               startIcon={<ManageAccountsIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
@@ -81,6 +73,7 @@ function MyAccountMenu() {
           </li>
           <li>
             <Button
+              sx={{ textTransform: 'capitalize' }}
               startIcon={<LogoutIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
