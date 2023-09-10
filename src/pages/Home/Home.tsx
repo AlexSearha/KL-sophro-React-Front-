@@ -1,3 +1,4 @@
+// REACT
 import { useEffect, useState } from 'react';
 // MUI
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
@@ -5,12 +6,10 @@ import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
 import { Button, Divider } from '@mui/material';
 import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 // React Component
-import FooterMobile from '../../components/Footer/Footer';
-import HeaderMobile from '../../components/Header/Header';
 import PriceCard from './PriceCard/PriceCard';
 import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 // STORE
-import useUser from '../../store/store';
+import { useUser } from '../../store/store';
 // API
 import regenerateAccessToken from '../../utils/utilsFunctions';
 // images
@@ -27,6 +26,7 @@ import studentPic from '../../assets/Etudiant-e1669810949103.webp';
 import childPic from '../../assets/teen-e1669811659157.webp';
 // CSS
 import './style.scss';
+import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 function Home() {
   const [scroll, setScroll] = useState<boolean>(false);
@@ -51,6 +51,7 @@ function Home() {
     };
   }, [scroll]);
 
+  // RegenerateTokens
   useEffect(() => {
     async function test() {
       const isTokenValid = await regenerateAccessToken();
@@ -69,7 +70,6 @@ function Home() {
   return (
     <>
       <FloatingButtonUp scroll={scroll} />
-      <HeaderMobile />
       <main className="main">
         <section className="banner">
           <img className="banner__image" src={treeImage} alt="Chêne" />
@@ -350,7 +350,6 @@ function Home() {
           <h2 style={{ textAlign: 'end' }}>...créées pour vous.</h2>
         </section>
       </main>
-      <FooterMobile />
     </>
   );
 }
