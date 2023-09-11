@@ -68,3 +68,13 @@ export interface AppointmentProps {
   created_at: string;
   updated_at: string;
 }
+
+export interface DateCalendarProps {
+  $D: number;
+  $H: number;
+  $M: number;
+  $W: number;
+  $d: Date;
+  $ms: number;
+  $y: number;
+}

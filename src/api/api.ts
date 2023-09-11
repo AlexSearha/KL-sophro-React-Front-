@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AppointmentProps, UserProps } from '../@types';
+import { UserProps } from '../@types';
 
 const backEndUrl = 'http://localhost:3000';
 
@@ -11,8 +11,8 @@ export const apiBackEnd = axios.create({
 
 export const getLogin = () => {
   return apiBackEnd
-    .get('/client')
-    .then((res) => res.data as UserProps)
+    .get<UserProps>('/client')
+    .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 

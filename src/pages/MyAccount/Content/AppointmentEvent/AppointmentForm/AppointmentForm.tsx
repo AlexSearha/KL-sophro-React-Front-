@@ -1,136 +1,89 @@
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import 'dayjs/locale/fr';
-import Badge from '@mui/material/Badge';
+import React, { useState } from 'react';
+// DAYJS
+import dayjs from 'dayjs';
+// MUI
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { PickerSelectionState } from '@mui/x-date-pickers/internals';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+// TYPES
+import { DateCalendarProps } from '../../../../../@types';
+// CSS
+import './style.scss';
 
-function getRandomNumber(min: number, max: number) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() =>
-        getRandomNumber(1, daysInMonth)
-      );
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
-  });
-}
-
-const initialValue = dayjs();
-// const initialValue = Date.now();
-
-function ServerDay(
-  props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
-) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-
-  const isSelected =
-    !props.outsideCurrentMonth &&
-    highlightedDays.indexOf(props.day.date()) >= 0;
-
-  return (
-    <Badge
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? '🟢' : undefined}
-    >
-      <PickersDay
-        {...other}
-        outsideCurrentMonth={outsideCurrentMonth}
-        day={day}
-      />
-    </Badge>
-  );
-}
-
-export default function AppointmentForm() {
-  const requestAbortController = React.useRef<AbortController | null>(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2]);
-
-  const fetchHighlightedDays = (date: Dayjs) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
+export default function AppointmentForm({
+  appointmentsDates,
+}: {
+  appointmentsDates: string[] | void;
+}) {
+  const [hour, setHour] = React.useState('');
+  const handleChangeDate = (
+    value: DateCalendarProps | null,
+    selectionState?: PickerSelectionState | undefined
+  ) => {
+    console.log(appointmentsDates);
   };
 
-  const handleDateChange = (e) => {
-    console.log('Année:', e.$y, 'Mois: ', e.$M, 'Jour: ', e.$D);
+  const handleChange = (event: SelectChangeEvent) => {
+    setHour(event.target.value);
   };
 
-  React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    // abort request on unmount
-    return () => requestAbortController.current?.abort();
-  }, []);
-
-  const handleMonthChange = (date: Dayjs) => {
-    if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.abort();
+  const testboucle = () => {
+    let t = [];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 15; i < 20; i++) {
+      t.push(i);
     }
-
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
+    console.log(t);
   };
 
   return (
-    <LocalizationProvider
-      dateAdapter={AdapterDayjs}
-      adapterLocale="fr"
-      localeText={
-        frFR.components.MuiLocalizationProvider.defaultProps.localeText
-      }
-    >
-      <DateCalendar
-        disablePast
-        defaultValue={initialValue}
-        loading={isLoading}
-        onMonthChange={handleMonthChange}
-        renderLoading={() => <DayCalendarSkeleton />}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          } as any,
-        }}
-        onChange={handleDateChange}
-      />
-    </LocalizationProvider>
+    <div className="appointment-form">
+      <div className="appointment-form__calendar">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DateCalendar']}>
+            <DateCalendar
+              disablePast
+              onChange={handleChangeDate}
+              referenceDate={dayjs()}
+              views={['year', 'month', 'day']}
+            />
+          </DemoContainer>
+        </LocalizationProvider>
+      </div>
+      <div className="appointment-form__date-choice">
+        <FormControl sx={{ m: 1, width: '100%' }}>
+          <InputLabel id="demo-simple-select-autowidth-label">
+            Heure du rendez-vous
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-autowidth-label"
+            id="demo-simple-select-autowidth"
+            value={hour}
+            onChange={handleChange}
+            autoWidth
+            label="Heure du rendez-vous"
+          >
+            <MenuItem value="">
+              <em>Veuillez choisir un créneau</em>
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+    </div>
   );
+}
+
+{
+  /* <MenuItem value={10}>Twenty</MenuItem> */
 }

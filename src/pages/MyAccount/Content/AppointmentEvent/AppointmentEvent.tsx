@@ -44,7 +44,7 @@ function a11yProps(index: number) {
 }
 
 function AppointmentEvent() {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState<number>(1);
   const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
     state.userInfos,
     state.UpdateUserInfos,
@@ -56,6 +56,16 @@ function AppointmentEvent() {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const getAppointmentPatch = (): string[] | void => {
+    let result = [];
+    userAppointments?.map((appointment) => {
+      const date = appointment.date.split('T')[0];
+      const hour = appointment.date.split('T')[1].split('.')[0];
+      result.push([date, hour]);
+    });
+    return result;
   };
 
   useEffect(() => {
@@ -111,7 +121,7 @@ function AppointmentEvent() {
         ))}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <AppointmentForm />
+        <AppointmentForm appointmentsDates={getAppointmentPatch()} />
       </CustomTabPanel>
     </Box>
   );

@@ -1,0 +1,15 @@
+.appointment-form {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  &__calendar {
+    width: 50%;
+  }
+
+  &__date-choice {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+  }
+}
