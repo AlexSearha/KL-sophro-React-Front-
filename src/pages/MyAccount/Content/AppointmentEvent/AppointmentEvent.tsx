@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+// DAYJS
+import dayjs from 'dayjs';
 // TYPES
 import { AppointmentProps, TabPanelProps } from '../../../../@types';
 // COMPONENTS
@@ -29,7 +31,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -45,42 +47,73 @@ function a11yProps(index: number) {
 
 function AppointmentEvent() {
   const [value, setValue] = useState<number>(1);
-  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
-    state.userInfos,
-    state.UpdateUserInfos,
-  ]);
+  const [userInfos] = useUserInformations((state) => [state.userInfos]);
   const [userAppointments, UpdateUserAppointments] = useUser((state) => [
     state.appointments,
     state.UpdateAppointments,
   ]);
+  const [pastAppointmentsState, setPastAppointmentsState] = useState([]);
+  const [futurAppointmentsState, setFuturAppointmentsState] = useState([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const getAppointmentPatch = (): string[] | void => {
-    let result = [];
+    const result: string[] = [];
     userAppointments?.map((appointment) => {
       const date = appointment.date.split('T')[0];
       const hour = appointment.date.split('T')[1].split('.')[0];
-      result.push([date, hour]);
+      if (date && hour) {
+        result.push([date, hour]);
+      }
     });
     return result;
   };
+  const filterFuturOrPastAppointment = () => {
+    // console.log('date: ', date);
+    const pastAppointments: string[] = [];
+    const futurAppointments: string[] = [];
+    userAppointments?.forEach((appointment) => {
+      const dateToTest = appointment.date.split('T')[0];
+      console.log('dateToTest: ', dateToTest);
+      const isBefore = dayjs().isBefore(dateToTest);
+      console.log('isAfter: ', isBefore);
+      if (isBefore) {
+        futurAppointments.push(appointment);
+      } else {
+        pastAppointments.push(appointment);
+      }
+    });
+    setPastAppointmentsState(pastAppointments);
+    setFuturAppointmentsState(futurAppointments);
+  };
 
   useEffect(() => {
-    async function test() {
-      if (userInfos.id) {
-        const appointments = await getAllAppointments(userInfos.id);
-        if (Array.isArray(appointments)) {
-          // We ensure that appointment is a an array to pleased Typescript
-          UpdateUserAppointments(appointments);
+    async function getAppointment() {
+      try {
+        if (userInfos.id) {
+          const appointments = await getAllAppointments(userInfos.id);
+          if (Array.isArray(appointments)) {
+            UpdateUserAppointments(appointments);
+            // setLoading(false); // Mettre à jour l'état de chargement une fois les données chargées
+          }
         }
+      } catch (error) {
+        console.log('ERROR: ', error);
       }
     }
-    test();
+    getAppointment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfos.id]);
+  }, [userAppointments]);
+
+  useEffect(() => {
+    if (userAppointments) {
+      console.log('userAppointments: ', userAppointments);
+      filterFuturOrPastAppointment();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userAppointments]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -113,12 +146,22 @@ function AppointmentEvent() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        test 1
+        {pastAppointmentsState.length > 0 ? (
+          pastAppointmentsState?.map((item: AppointmentProps) => (
+            <Appointment item={item} key={item.id} />
+          ))
+        ) : (
+          <p>Vous n&apos;avez pas de rendez-vous passé</p>
+        )}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {userAppointments?.map((item: AppointmentProps) => (
-          <Appointment item={item} key={item.id} />
-        ))}
+        {futurAppointmentsState.length > 0 ? (
+          futurAppointmentsState?.map((item: AppointmentProps) => (
+            <Appointment item={item} key={item.id} />
+          ))
+        ) : (
+          <p>Vous n&apos;avez pas de rendez-vous</p>
+        )}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <AppointmentForm appointmentsDates={getAppointmentPatch()} />

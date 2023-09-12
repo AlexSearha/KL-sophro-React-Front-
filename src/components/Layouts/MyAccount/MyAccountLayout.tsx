@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 import HeaderMobile from '../Header/Header';
 import MyAccountMenu from '../../../pages/MyAccount/Settings/AccountSettingsMenu';
 import FooterMobile from '../Footer/Footer';
+// STORE
+// API
 // CSS
 import './style.scss';
 
