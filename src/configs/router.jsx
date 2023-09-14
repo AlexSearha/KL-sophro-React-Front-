@@ -7,8 +7,11 @@ import MyAccountLayout from '../components/Layouts/MyAccount/MyAccountLayout';
 import Home from '../pages/Home/Home';
 import LoginPage from '../pages/Login/Login';
 import SignUpPage from '../pages/SignUp/SignUp';
-import AccountContent from '../pages/MyAccount/Content/AccountContent';
 import Test2 from '../pages/Test/Test2';
+import MyAccountContent from '../pages/MyAccount/Outlets/MyAccountContent/MyAccountContent';
+import MyAccountTakeAppointment from '../pages/MyAccount/Outlets/MyAccountTakeAppointment/MyAccountTakeAppointment';
+import MyAccountSettings from '../pages/MyAccount/MyAccountSettings/MyAccountSettings';
+import Contact from '../pages/Contact/Contact';
 
 function RouterDom() {
   return (
@@ -18,10 +21,12 @@ function RouterDom() {
           <Route index element={<Home />} />
           <Route path="connexion" element={<LoginPage />} />
           <Route path="inscription" element={<SignUpPage />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/mon-compte" element={<MyAccountLayout />}>
-          <Route index element={<AccountContent />} />
-          <Route path="test2" element={<Test2 />} />
+          <Route index element={<MyAccountContent />} />
+          <Route path="prendre-rdv" element={<MyAccountTakeAppointment />} />
+          <Route path="parametres" element={<MyAccountSettings />} />
         </Route>
         <Route path="/back-office" element={<LoginPage />}>
           <Route index element={<Test2 />} />

@@ -1,36 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { validate } from 'email-validator';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
 import * as Yup from 'yup';
-import { Box, Button, TextField } from '@mui/material';
-import HeaderMobile from '../../components/Layouts/Header/Header';
+import { Alert, Box, Button, TextField } from '@mui/material';
 import { apiBackEnd } from '../../api/api';
 
 import './style.scss';
 import { useUser, useUserInformations } from '../../store/store';
-import FooterMobile from '../../components/Layouts/Footer/Footer';
 
 function LoginPage() {
   const [isConnected, UpdateIsConnected] = useUser((state) => [
     state.isConnected,
     state.UpdateIsConnected,
   ]);
-  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
-    state.userInfos,
-    state.UpdateUserInfos,
-  ]);
+  const [errorLoginMessage, setErrorLoginMessage] = useState<boolean>(false);
+  const UpdateUserInfos = useUserInformations((state) => state.userInfos);
 
   const navigate = useNavigate();
 
-  const fetchLogin = useMutation({
-    mutationFn: async (newTodo) => {
+  const fetchLogin = async (newTodo: { email: string; password: string }) => {
+    try {
       const result = await apiBackEnd.post('/login', newTodo);
       apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data}`;
+      UpdateIsConnected(true);
       UpdateUserInfos(result.data.user);
-    },
-  });
+    } catch (error) {
+      if (error.response.status === 404) {
+        setErrorLoginMessage(
+          'Votre email/mot de passe est incorrect, recommencez.'
+        );
+      }
+    }
+  };
 
   useEffect(() => {
     if (isConnected) {
@@ -41,7 +43,7 @@ function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: 'johndoe@hotmail.fr',
+      email: 'alexis.marouf@hotmail.fr',
       password: 'coucou',
     },
     validationSchema: Yup.object({
@@ -54,8 +56,7 @@ function LoginPage() {
     }),
     onSubmit: (values) => {
       if (validate(values.email)) {
-        fetchLogin.mutate(values);
-        UpdateIsConnected(true);
+        fetchLogin(values);
       }
     },
   });
@@ -101,6 +102,11 @@ function LoginPage() {
           <Link className="forgotten-pw" to="/mdp-oublie">
             MOT DE PASSE OUBLIÉ ?
           </Link>
+          {errorLoginMessage ? (
+            <Alert sx={{ fontSize: 60 }} severity="error">
+              {errorLoginMessage}
+            </Alert>
+          ) : null}
         </Box>
       </form>
       <div className="new-client">

@@ -7,14 +7,16 @@ export interface TestProp {
 export interface UserState {
   isConnected: boolean;
   appointments?: AppointmentProps[];
+  selectionDate?: string[];
   UpdateIsConnected: (value: boolean) => void;
   UpdateAppointments: (value: AppointmentProps[]) => void;
+  SetSelectionDate: (value: string[]) => void;
 }
 
 export interface UserInformations {
   userInfos: {
     id: number | null;
-    firstname?: string | null;
+    firstname?: string;
     lastname: string;
     email: string;
   };
@@ -67,14 +69,4 @@ export interface AppointmentProps {
   protocol_id: number;
   created_at: string;
   updated_at: string;
-}
-
-export interface DateCalendarProps {
-  $D: number;
-  $H: number;
-  $M: number;
-  $W: number;
-  $d: Date;
-  $ms: number;
-  $y: number;
 }

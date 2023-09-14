@@ -4,8 +4,10 @@ import { UserInformations, UserNavigation, UserState } from '../@types';
 const useUser = create<UserState>()((set) => ({
   isConnected: false,
   appointments: [],
+  selectionDate: [],
   UpdateIsConnected: (value) => set(() => ({ isConnected: value })),
   UpdateAppointments: (value) => set(() => ({ appointments: value })),
+  SetSelectionDate: (value) => set(() => ({ selectionDate: value })),
 }));
 
 const useUserNavigation = create<UserNavigation>()((set) => ({

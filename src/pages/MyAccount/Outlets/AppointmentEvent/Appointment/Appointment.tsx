@@ -1,5 +1,4 @@
 // REACT
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // MUI
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -10,10 +9,25 @@ import { AppointmentProps } from '../../../../../@types';
 import './style.scss';
 
 function Appointment({ item }: { item: AppointmentProps }) {
-  const { status, exercices, date, reporting, paiment_value } = item;
+  const {
+    status,
+    exercices,
+    date,
+    reporting,
+    paiment_value: paimentValue,
+  } = item;
   const appointmentState = `appointment__part-two__state ${status}`;
   const getDate = date.split('T')[0].split('-');
   const getHour = date.split('T')[1].split(':');
+
+  const changeTagStatusClassname = () => {
+    if (status === 'booked') {
+      return 'Reservé';
+    } else if (status === 'done') {
+      return 'Terminé';
+    }
+    return null;
+  };
 
   return (
     <div className="appointment">
@@ -50,14 +64,14 @@ function Appointment({ item }: { item: AppointmentProps }) {
         </div>
         <div className="appointment__part-two">
           <div>
-            <div className={appointmentState}>{status}</div>
-            {status === 'cancelled' || status === 'done' ? null : (
+            <div className={appointmentState}>{changeTagStatusClassname()}</div>
+            {status === 'canceled' || status === 'done' ? null : (
               <Link className="appointment--modify" to="/">
                 modifier
               </Link>
             )}
           </div>
-          <div className="appointment__part-two__price">{paiment_value} €</div>
+          <div className="appointment__part-two__price">{paimentValue} €</div>
         </div>
       </div>
     </div>

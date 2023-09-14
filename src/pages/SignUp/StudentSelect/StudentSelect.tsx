@@ -29,10 +29,10 @@ function StudentSelect({ ...props }: Props) {
           label="Etudiant?"
           onChange={handleChange}
         >
-          <MenuItem key="oui" value="oui">
+          <MenuItem key="oui" value={true}>
             Oui
           </MenuItem>
-          <MenuItem key="non" value="non">
+          <MenuItem key="non" value={false}>
             Non
           </MenuItem>
         </Select>

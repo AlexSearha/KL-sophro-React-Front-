@@ -28,10 +28,7 @@ interface FormValues {
 
 function SignUpPage() {
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isConnected, UpdateIsConnected] = useUser((state) => [
-    state.isConnected,
-    state.UpdateIsConnected,
-  ]);
+  const [isConnected] = useUser((state) => [state.isConnected]);
 
   const navigate = useNavigate();
 
@@ -59,7 +56,7 @@ function SignUpPage() {
     password: '',
     checkpass: '',
     dateOfBirth: '',
-    student: '',
+    student: false,
   };
 
   const handleSubmit = (values: FormValues) => {
@@ -84,7 +81,7 @@ function SignUpPage() {
           )
           .required('Confirmation mot de passe requis'),
         dateOfBirth: Yup.string().required('Votre age est requis'),
-        student: Yup.string().required('Votre statut étudiant est requis'),
+        student: Yup.boolean().required('Votre statut étudiant est requis'),
       })}
       onSubmit={handleSubmit}
     >

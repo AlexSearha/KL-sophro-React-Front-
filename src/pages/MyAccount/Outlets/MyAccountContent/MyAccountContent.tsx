@@ -1,15 +1,12 @@
 // STORE
-import { useUserInformations } from '../../../store/store';
 // COMPONENT
-import AppointmentEvent from './AppointmentEvent/AppointmentEvent';
+import { useUserInformations } from '../../../../store/store';
+import AppointmentEvent from '../AppointmentEvent/AppointmentEvent';
 // CSS
 import './style.scss';
 
-function AccountContent() {
-  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
-    state.userInfos,
-    state.UpdateUserInfos,
-  ]);
+function MyAccountContent() {
+  const [userInfos] = useUserInformations((state) => [state.userInfos]);
 
   return (
     <div className="account">
@@ -32,4 +29,4 @@ function AccountContent() {
   );
 }
 
-export default AccountContent;
+export default MyAccountContent;

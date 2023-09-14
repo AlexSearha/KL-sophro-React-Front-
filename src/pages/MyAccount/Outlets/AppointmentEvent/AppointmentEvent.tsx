@@ -10,7 +10,6 @@ import dayjs from 'dayjs';
 import { AppointmentProps, TabPanelProps } from '../../../../@types';
 // COMPONENTS
 import Appointment from './Appointment/Appointment';
-import AppointmentForm from './AppointmentForm/AppointmentForm';
 // API
 import { getAllAppointments } from '../../../../api/api';
 // STORE
@@ -31,7 +30,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component={'span'}>{children}</Typography>
+          <Typography component="span">{children}</Typography>
         </Box>
       )}
     </div>
@@ -52,33 +51,23 @@ function AppointmentEvent() {
     state.appointments,
     state.UpdateAppointments,
   ]);
-  const [pastAppointmentsState, setPastAppointmentsState] = useState([]);
-  const [futurAppointmentsState, setFuturAppointmentsState] = useState([]);
+  const [pastAppointmentsState, setPastAppointmentsState] = useState<
+    AppointmentProps[]
+  >([]);
+  const [futurAppointmentsState, setFuturAppointmentsState] = useState<
+    AppointmentProps[]
+  >([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const getAppointmentPatch = (): string[] | void => {
-    const result: string[] = [];
-    userAppointments?.map((appointment) => {
-      const date = appointment.date.split('T')[0];
-      const hour = appointment.date.split('T')[1].split('.')[0];
-      if (date && hour) {
-        result.push([date, hour]);
-      }
-    });
-    return result;
-  };
   const filterFuturOrPastAppointment = () => {
-    // console.log('date: ', date);
-    const pastAppointments: string[] = [];
-    const futurAppointments: string[] = [];
+    const pastAppointments: AppointmentProps[] = [];
+    const futurAppointments: AppointmentProps[] = [];
     userAppointments?.forEach((appointment) => {
       const dateToTest = appointment.date.split('T')[0];
-      console.log('dateToTest: ', dateToTest);
       const isBefore = dayjs().isBefore(dateToTest);
-      console.log('isAfter: ', isBefore);
       if (isBefore) {
         futurAppointments.push(appointment);
       } else {
@@ -105,7 +94,7 @@ function AppointmentEvent() {
     }
     getAppointment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userAppointments]);
+  }, [userInfos.id]);
 
   useEffect(() => {
     if (userAppointments) {
@@ -138,11 +127,6 @@ function AppointmentEvent() {
             label="Prochains rendez-vous"
             {...a11yProps(1)}
           />
-          <Tab
-            sx={{ textTransform: 'capitalize' }}
-            label="Prendre rendez-vous"
-            {...a11yProps(2)}
-          />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -162,9 +146,6 @@ function AppointmentEvent() {
         ) : (
           <p>Vous n&apos;avez pas de rendez-vous</p>
         )}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <AppointmentForm appointmentsDates={getAppointmentPatch()} />
       </CustomTabPanel>
     </Box>
   );
