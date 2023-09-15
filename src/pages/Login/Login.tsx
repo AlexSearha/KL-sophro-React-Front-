@@ -1,32 +1,39 @@
+// REACT
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { validate } from 'email-validator';
 import { Link, useNavigate } from 'react-router-dom';
+// FORMS & VALIDATION
+import { validate } from 'email-validator';
 import * as Yup from 'yup';
-import { Alert, Box, Button, TextField } from '@mui/material';
+// MUI
+import { Box, Button, TextField } from '@mui/material';
+// COMPONENT
+import { AlertError } from '../../components/Layouts/Alert/AlertBox';
+// API
 import { apiBackEnd } from '../../api/api';
-
-import './style.scss';
+// STORE
 import { useUser, useUserInformations } from '../../store/store';
+// CSS
+import './style.scss';
 
 function LoginPage() {
   const [isConnected, UpdateIsConnected] = useUser((state) => [
     state.isConnected,
     state.UpdateIsConnected,
   ]);
-  const [errorLoginMessage, setErrorLoginMessage] = useState<boolean>(false);
-  const UpdateUserInfos = useUserInformations((state) => state.userInfos);
+  const [errorLoginMessage, setErrorLoginMessage] = useState<string>('');
+  const UpdateUserInfos = useUserInformations((state) => state.UpdateUserInfos);
 
   const navigate = useNavigate();
 
   const fetchLogin = async (newTodo: { email: string; password: string }) => {
     try {
       const result = await apiBackEnd.post('/login', newTodo);
-      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data}`;
+      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data.accessToken}`;
       UpdateIsConnected(true);
       UpdateUserInfos(result.data.user);
-    } catch (error) {
-      if (error.response.status === 404) {
+    } catch (error: any) {
+      if (error.response.status === 401 || error.response.status === 404) {
         setErrorLoginMessage(
           'Votre email/mot de passe est incorrect, recommencez.'
         );
@@ -43,8 +50,8 @@ function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: 'alexis.marouf@hotmail.fr',
-      password: 'coucou',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -91,6 +98,9 @@ function LoginPage() {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          {errorLoginMessage ? (
+            <AlertError message={errorLoginMessage} />
+          ) : null}
           <Button
             fullWidth
             variant="contained"
@@ -102,11 +112,6 @@ function LoginPage() {
           <Link className="forgotten-pw" to="/mdp-oublie">
             MOT DE PASSE OUBLIÉ ?
           </Link>
-          {errorLoginMessage ? (
-            <Alert sx={{ fontSize: 60 }} severity="error">
-              {errorLoginMessage}
-            </Alert>
-          ) : null}
         </Box>
       </form>
       <div className="new-client">

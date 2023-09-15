@@ -2,12 +2,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 // FORMIK
-import { Formik, FormikValues, Form, useFormik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 // DAYJS
 // MUI
 import {
-  Alert,
   Button,
   FormControl,
   FormHelperText,
@@ -16,11 +15,18 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+// COMPONENT
+import AppointmentDatePicker from './AppointmentDatePicker/AppointmentDatePicker';
+// API
+import { fetchAddAppointment } from '../../../../../api/api';
+// LAYOUT
+import { AlertError } from '../../../../../components/Layouts/Alert/AlertBox';
 // STORE
-import { useUser } from '../../../../../store/store';
+import { useUser, useUserInformations } from '../../../../../store/store';
 // CSS
 import './style.scss';
-import AppointmentDatePicker from './AppointmentDatePicker/AppointmentDatePicker';
+import { ValueSubmitProps } from '../../../../../@types';
+import PaiementTotal from './AppointmentPaiement/AppointmentPaiement';
 
 export default function AppointmentForm({
   appointmentsDates,
@@ -32,7 +38,7 @@ export default function AppointmentForm({
     state.isConnected,
     state.selectionDate,
   ]);
-
+  const userInfos = useUserInformations((state) => state.userInfos);
   const navigate = useNavigate();
 
   const filterDates = (): string[][] => {
@@ -58,17 +64,27 @@ export default function AppointmentForm({
     return splitHoursFilteredArray;
   };
 
+  const onSubmit = async (userInfos, data: ValueSubmitProps) => {
+    try {
+      console.log('userInfos: ', userInfos);
+      // if (userInfos.id !== null) {
+      //   const result = await fetchAddAppointment(userInfos, data);
+      //   console.log('result new Appointment: ', result);
+      // }
+    } catch (error) {}
+  };
+
   function availableItemSlots() {
     const filteredHours = filterHours();
     const availableSlot = [];
     if (selectionDate.length > 0) {
       if (filteredHours.length === 0) {
-        for (let i = 5; i < 20; i++) {
+        for (let i = 15; i < 20; i++) {
           const menuItem = <MenuItem key={i} value={i}>{`${i}h00`}</MenuItem>;
           availableSlot.push(menuItem);
         }
       } else {
-        for (let i = 5; i < 20; i++) {
+        for (let i = 155; i < 20; i++) {
           filteredHours.forEach((item) => {
             if (item !== i) {
               const menuItem = (
@@ -83,12 +99,6 @@ export default function AppointmentForm({
 
     return availableSlot;
   }
-
-  useEffect(() => {
-    const availableSlot = availableItemSlots();
-    console.log('availableSlot: ', availableSlot);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectionDate]);
 
   useEffect(() => {
     if (!isConnected) {
@@ -111,7 +121,8 @@ export default function AppointmentForm({
       })}
       onSubmit={(values, action) => {
         console.log('ENTRER DANS onSUBMIT');
-        alert(JSON.stringify(values, null, 2));
+        onSubmit(userInfos, values);
+        // alert(JSON.stringify(values, null, 2));
       }}
     >
       {(formik) => (
@@ -124,9 +135,7 @@ export default function AppointmentForm({
               />
             </div>
             <div className="appointment-form__date-choice">
-              {errorMessage ? (
-                <Alert severity="warning">{errorMessage}</Alert>
-              ) : null}
+              {errorMessage ? <AlertError message={errorMessage} /> : null}
               <FormControl sx={{ m: 1, width: '100%' }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Heure du rendez-vous
@@ -156,7 +165,7 @@ export default function AppointmentForm({
               </FormControl>
               <TextField
                 fullWidth
-                label="Ajouter un commentaire"
+                label="Ajouter un commentaire (optionnel)"
                 name="comments"
                 value={formik.values.comments}
                 onChange={formik.handleChange}
@@ -166,6 +175,7 @@ export default function AppointmentForm({
                 }
                 helperText={formik.touched.comments && formik.errors.comments}
               />
+              <PaiementTotal isStudent={userInfos.student} />
               <Button fullWidth variant="contained" type="submit">
                 Réserver
               </Button>

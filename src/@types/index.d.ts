@@ -8,9 +8,15 @@ export interface UserState {
   isConnected: boolean;
   appointments?: AppointmentProps[];
   selectionDate?: string[];
+  unavailabilityFrom: number | null;
+  unavailabilityTo: number | null;
+  specificUnavailabilitesDates: string[];
   UpdateIsConnected: (value: boolean) => void;
   UpdateAppointments: (value: AppointmentProps[]) => void;
   SetSelectionDate: (value: string[]) => void;
+  SetUnavailabilityFrom: (value: number) => void;
+  SetUnavailabilityTo: (value: number) => void;
+  SetSpecificUnavailabilitesDates: (values: string[]) => void;
 }
 
 export interface UserInformations {
@@ -19,6 +25,7 @@ export interface UserInformations {
     firstname?: string;
     lastname: string;
     email: string;
+    student: boolean | null;
   };
   UpdateUserInfos: (value: any) => void;
 }
@@ -69,4 +76,17 @@ export interface AppointmentProps {
   protocol_id: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface UnavailableProps {
+  id: number;
+  date: string;
+  days_of_week_from: number;
+  days_of_week_to: number;
+}
+
+export interface ValueSubmitProps {
+  appointmentDate: string;
+  appointmentHour: string;
+  comments: string;
 }

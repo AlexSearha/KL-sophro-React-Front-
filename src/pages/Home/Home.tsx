@@ -9,7 +9,7 @@ import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 import PriceCard from './PriceCard/PriceCard';
 import FloatingButtonUp from '../../components/FloatingButtonUp/FloatingButtonUp';
 // STORE
-import { useUser, useUserInformations } from '../../store/store';
+import { useUser } from '../../store/store';
 // API
 import regenerateAccessToken from '../../utils/utilsFunctions';
 // images
@@ -34,10 +34,6 @@ function Home() {
     state.isConnected,
     state.UpdateIsConnected,
   ]);
-  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
-    state.userInfos,
-    state.UpdateUserInfos,
-  ]);
   // Scroll to the top smoothly
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +53,7 @@ function Home() {
 
   // RegenerateTokens
   useEffect(() => {
-    async function test() {
+    async function userConnexionState() {
       const isTokenValid = await regenerateAccessToken();
       if (isTokenValid) {
         UpdateIsConnected(true);
@@ -67,7 +63,7 @@ function Home() {
         console.log('USER IS LOGGED OUT');
       }
     }
-    test();
+    userConnexionState();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
 

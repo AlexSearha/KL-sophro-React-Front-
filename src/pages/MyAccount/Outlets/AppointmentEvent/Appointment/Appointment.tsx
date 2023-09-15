@@ -23,6 +23,7 @@ function Appointment({ item }: { item: AppointmentProps }) {
   const changeTagStatusClassname = () => {
     if (status === 'booked') {
       return 'Reservé';
+      // eslint-disable-next-line no-else-return
     } else if (status === 'done') {
       return 'Terminé';
     }

@@ -5,9 +5,16 @@ const useUser = create<UserState>()((set) => ({
   isConnected: false,
   appointments: [],
   selectionDate: [],
+  unavailabilityFrom: null,
+  unavailabilityTo: null,
+  specificUnavailabilitesDates: [],
   UpdateIsConnected: (value) => set(() => ({ isConnected: value })),
   UpdateAppointments: (value) => set(() => ({ appointments: value })),
   SetSelectionDate: (value) => set(() => ({ selectionDate: value })),
+  SetUnavailabilityFrom: (value) => set(() => ({ unavailabilityFrom: value })),
+  SetUnavailabilityTo: (value) => set(() => ({ unavailabilityTo: value })),
+  SetSpecificUnavailabilitesDates: (value) =>
+    set(() => ({ specificUnavailabilitesDates: value })),
 }));
 
 const useUserNavigation = create<UserNavigation>()((set) => ({
@@ -16,7 +23,13 @@ const useUserNavigation = create<UserNavigation>()((set) => ({
 }));
 
 const useUserInformations = create<UserInformations>()((set) => ({
-  userInfos: { id: null, firstname: '', lastname: '', email: '' },
+  userInfos: {
+    id: null,
+    firstname: '',
+    lastname: '',
+    email: '',
+    student: null,
+  },
   UpdateUserInfos: (value) =>
     set(() => ({
       userInfos: {
@@ -24,6 +37,7 @@ const useUserInformations = create<UserInformations>()((set) => ({
         firstname: value.firstname,
         lastname: value.lastname,
         email: value.email,
+        student: value.student,
       },
     })),
 }));

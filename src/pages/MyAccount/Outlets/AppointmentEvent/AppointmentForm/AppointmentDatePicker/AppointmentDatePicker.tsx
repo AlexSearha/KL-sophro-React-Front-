@@ -14,10 +14,18 @@ interface Props extends FieldConfig {
   name: string;
 }
 
-const disableDates = ['2023-12-15', '2024-05-07'];
-
 function AppointmentDatePicker({ label, ...props }: Props) {
-  const SetSelectionDate = useUser((state) => state.SetSelectionDate);
+  const [
+    SetSelectionDate,
+    unavailabilityFrom,
+    unavailabilityTo,
+    specificUnavailabilitesDates,
+  ] = useUser((state) => [
+    state.SetSelectionDate,
+    state.unavailabilityFrom,
+    state.unavailabilityTo,
+    state.specificUnavailabilitesDates,
+  ]);
   const { setFieldValue } = useFormikContext();
 
   const handleDateChange = (date: Date | null) => {
@@ -34,14 +42,16 @@ function AppointmentDatePicker({ label, ...props }: Props) {
     const dayOfWeek = date.day();
 
     if (
-      disableDates?.some((disabledDate) =>
+      specificUnavailabilitesDates?.some((disabledDate) =>
         dayjs(disabledDate).isSame(date, 'day')
       )
     ) {
       return true;
     }
-
-    return dayOfWeek >= 0 && dayOfWeek <= 3; // 0 for dimanche, 1 pour lundi, 2 pour mardi, etc...
+    if (unavailabilityFrom !== null && unavailabilityTo !== null) {
+      return dayOfWeek >= unavailabilityFrom && dayOfWeek <= unavailabilityTo; // 0 for dimanche, 1 pour lundi, 2 pour mardi, etc...
+    }
+    return null;
   };
 
   return (
@@ -56,7 +66,6 @@ function AppointmentDatePicker({ label, ...props }: Props) {
         <DateCalendar
           disablePast
           displayWeekNumber
-          disableD
           shouldDisableDate={shouldDisableDate}
           label={label}
           onChange={handleDateChange}

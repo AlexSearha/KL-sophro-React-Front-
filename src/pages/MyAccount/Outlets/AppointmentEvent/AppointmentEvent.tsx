@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 // MUI
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 // DAYJS
 import dayjs from 'dayjs';
 // TYPES
@@ -58,6 +60,8 @@ function AppointmentEvent() {
     AppointmentProps[]
   >([]);
 
+  const navigate = useNavigate();
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -78,6 +82,9 @@ function AppointmentEvent() {
     setFuturAppointmentsState(futurAppointments);
   };
 
+  const handleClickFirstAppointment = () => {
+    navigate('/mon-compte/prendre-rdv');
+  };
   useEffect(() => {
     async function getAppointment() {
       try {
@@ -98,7 +105,6 @@ function AppointmentEvent() {
 
   useEffect(() => {
     if (userAppointments) {
-      console.log('userAppointments: ', userAppointments);
       filterFuturOrPastAppointment();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +150,16 @@ function AppointmentEvent() {
             <Appointment item={item} key={item.id} />
           ))
         ) : (
-          <p>Vous n&apos;avez pas de rendez-vous</p>
+          <>
+            <p>Vous n&apos;avez pas de rendez-vous</p>
+            <Button
+              sx={{ fontWeight: 700, textTransform: 'capitalize' }}
+              variant="contained"
+              onClick={handleClickFirstAppointment}
+            >
+              Prendre Rendez-Vous
+            </Button>
+          </>
         )}
       </CustomTabPanel>
     </Box>
