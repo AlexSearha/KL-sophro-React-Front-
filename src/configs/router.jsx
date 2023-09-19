@@ -10,8 +10,10 @@ import SignUpPage from '../pages/SignUp/SignUp';
 import Test2 from '../pages/Test/Test2';
 import MyAccountContent from '../pages/MyAccount/Outlets/MyAccountContent/MyAccountContent';
 import MyAccountTakeAppointment from '../pages/MyAccount/Outlets/MyAccountTakeAppointment/MyAccountTakeAppointment';
-import MyAccountSettings from '../pages/MyAccount/MyAccountSettings/MyAccountSettings';
 import Contact from '../pages/Contact/Contact';
+import MyAccountSettingsLayout from '../components/Layouts/MyAccount/MyAccountSettingsLayout/MyAccountSettings';
+import MyAccountSettingsRouter from '../pages/MyAccount/Outlets/Settings/MyAccountSeetingsRouter';
+import PersonnalInfos from '../pages/MyAccount/Outlets/Settings/PersonnalInfos/PersonnalInfos';
 
 function RouterDom() {
   return (
@@ -26,7 +28,15 @@ function RouterDom() {
         <Route path="/mon-compte" element={<MyAccountLayout />}>
           <Route index element={<MyAccountContent />} />
           <Route path="prendre-rdv" element={<MyAccountTakeAppointment />} />
-          <Route path="parametres" element={<MyAccountSettings />} />
+          <Route path="parametres" element={<MyAccountSettingsLayout />}>
+            <Route index element={<MyAccountSettingsRouter />} />
+            <Route
+              path="informations-personnelles"
+              element={<PersonnalInfos />}
+            />
+            <Route path="securite" element={<MyAccountSettingsRouter />} />
+            <Route path="notifications" element={<MyAccountSettingsRouter />} />
+          </Route>
         </Route>
         <Route path="/back-office" element={<LoginPage />}>
           <Route index element={<Test2 />} />
