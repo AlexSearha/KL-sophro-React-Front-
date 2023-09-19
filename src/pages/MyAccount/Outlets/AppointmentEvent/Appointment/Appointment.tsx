@@ -59,7 +59,7 @@ function Appointment({ item }: { item: AppointmentProps }) {
           </div>
         </div>
         <div className="appointment__part-two">
-          <div>
+          <div className="appointment__part-two__container">
             <div className={appointmentState}>{changeTagStatusClassname()}</div>
             {status === 'cancelled' || status === 'done' ? null : (
               <CancelAppointmentModal

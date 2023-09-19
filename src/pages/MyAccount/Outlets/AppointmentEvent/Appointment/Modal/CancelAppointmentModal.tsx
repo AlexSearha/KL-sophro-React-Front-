@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 // API
 import { fetchDeleteAppointment } from '../../../../../../api/api';
 import { useUser, useUserInformations } from '../../../../../../store/store';
+import TrashTooltip from '../../../../../../components/TrashTooltip/TrashTooltip';
 
 const style = {
   position: 'absolute' as const,
@@ -59,9 +60,7 @@ export default function CancelAppointmentModal({
 
   return (
     <div>
-      <Button sx={{ fontSize: 11, color: 'red' }} onClick={handleOpen}>
-        Annuler
-      </Button>
+      <TrashTooltip eventListener={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}

@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 // COMPONENT
 import AppointmentDatePicker from './AppointmentDatePicker/AppointmentDatePicker';
+import PaiementTotal from './AppointmentPaiement/AppointmentPaiement';
 // API
 import { fetchAddAppointment } from '../../../../../api/api';
 // LAYOUT
@@ -25,7 +26,6 @@ import { AlertError } from '../../../../../components/Layouts/Alert/AlertBox';
 import { useUser, useUserInformations } from '../../../../../store/store';
 // CSS
 import './style.scss';
-import PaiementTotal from './AppointmentPaiement/AppointmentPaiement';
 
 export default function AppointmentForm({
   appointmentsDates,
@@ -84,8 +84,6 @@ export default function AppointmentForm({
   };
 
   const onSubmit = async (userInformations, data) => {
-    console.log('userInformations: ', userInformations);
-    console.log('data: ', data);
     try {
       const selectedDate = new Date(
         `${data.appointmentDate}T${data.appointmentHour}:00:00`
@@ -131,9 +129,6 @@ export default function AppointmentForm({
       })}
       onSubmit={(values, action) => {
         onSubmit(userInfos, values);
-        // console.log('userInfos: ', userInfos);
-        // console.log('values: ', values);
-        // alert(JSON.stringify(values, null, 2));
       }}
     >
       {(formik) => (
