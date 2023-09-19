@@ -1,5 +1,3 @@
-// REACT
-import { Link } from 'react-router-dom';
 // MUI
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Button } from '@mui/material';
@@ -7,15 +5,10 @@ import { Button } from '@mui/material';
 import { AppointmentProps } from '../../../../../@types';
 // CSS
 import './style.scss';
+import CancelAppointmentModal from './Modal/CancelAppointmentModal';
 
 function Appointment({ item }: { item: AppointmentProps }) {
-  const {
-    status,
-    exercices,
-    date,
-    reporting,
-    paiment_value: paimentValue,
-  } = item;
+  const { id, status, exercices, date, payment_value: paimentValue } = item;
   const appointmentState = `appointment__part-two__state ${status}`;
   const getDate = date.split('T')[0].split('-');
   const getHour = date.split('T')[1].split(':');
@@ -26,6 +19,8 @@ function Appointment({ item }: { item: AppointmentProps }) {
       // eslint-disable-next-line no-else-return
     } else if (status === 'done') {
       return 'Terminé';
+    } else if (status === 'cancelled') {
+      return 'Annulé';
     }
     return null;
   };
@@ -45,8 +40,8 @@ function Appointment({ item }: { item: AppointmentProps }) {
               Rendez-vous
             </div>
             <div className="appointment__part-one__hours-hour">
-              {`${parseInt(getHour[0], 10)}h00 à ${
-                parseInt(getHour[0], 10) + 1
+              {`${parseInt(getHour[0], 10) + 2}h00 à ${
+                parseInt(getHour[0], 10) + 3
               }h00`}
             </div>
           </div>
@@ -66,10 +61,12 @@ function Appointment({ item }: { item: AppointmentProps }) {
         <div className="appointment__part-two">
           <div>
             <div className={appointmentState}>{changeTagStatusClassname()}</div>
-            {status === 'canceled' || status === 'done' ? null : (
-              <Link className="appointment--modify" to="/">
-                modifier
-              </Link>
+            {status === 'cancelled' || status === 'done' ? null : (
+              <CancelAppointmentModal
+                appointmentId={id}
+                getDate={getDate}
+                getHour={getHour}
+              />
             )}
           </div>
           <div className="appointment__part-two__price">{paimentValue} €</div>

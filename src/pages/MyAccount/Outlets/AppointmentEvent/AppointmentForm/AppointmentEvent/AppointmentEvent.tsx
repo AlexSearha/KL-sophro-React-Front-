@@ -9,13 +9,13 @@ import { Button } from '@mui/material';
 // DAYJS
 import dayjs from 'dayjs';
 // TYPES
-import { AppointmentProps, TabPanelProps } from '../../../../@types';
+import { AppointmentProps, TabPanelProps } from '../../../../../../@types';
 // COMPONENTS
-import Appointment from './Appointment/Appointment';
+import Appointment from '../../Appointment/Appointment';
 // API
-import { getAllAppointments } from '../../../../api/api';
+import { getAllAppointments } from '../../../../../../api/api';
 // STORE
-import { useUser, useUserInformations } from '../../../../store/store';
+import { useUser, useUserInformations } from '../../../../../../store/store';
 // CSS
 import './style.scss';
 
@@ -48,11 +48,13 @@ function a11yProps(index: number) {
 
 function AppointmentEvent() {
   const [value, setValue] = useState<number>(1);
-  const [userInfos] = useUserInformations((state) => [state.userInfos]);
-  const [userAppointments, UpdateUserAppointments] = useUser((state) => [
-    state.appointments,
-    state.UpdateAppointments,
-  ]);
+  const userInfos = useUserInformations((state) => state.userInfos);
+  const [userAppointments, UpdateUserAppointments, isAppointmentUpdated] =
+    useUser((state) => [
+      state.appointments,
+      state.UpdateAppointments,
+      state.isAppointmentUpdated,
+    ]);
   const [pastAppointmentsState, setPastAppointmentsState] = useState<
     AppointmentProps[]
   >([]);
@@ -82,7 +84,7 @@ function AppointmentEvent() {
     setFuturAppointmentsState(futurAppointments);
   };
 
-  const handleClickFirstAppointment = () => {
+  const handleClickToFirstAppointment = () => {
     navigate('/mon-compte/prendre-rdv');
   };
   useEffect(() => {
@@ -90,6 +92,7 @@ function AppointmentEvent() {
       try {
         if (userInfos.id) {
           const appointments = await getAllAppointments(userInfos.id);
+          console.log('appointments: ', appointments);
           if (Array.isArray(appointments)) {
             UpdateUserAppointments(appointments);
             // setLoading(false); // Mettre à jour l'état de chargement une fois les données chargées
@@ -101,7 +104,7 @@ function AppointmentEvent() {
     }
     getAppointment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfos.id]);
+  }, [userInfos.id, isAppointmentUpdated]);
 
   useEffect(() => {
     if (userAppointments) {
@@ -155,7 +158,7 @@ function AppointmentEvent() {
             <Button
               sx={{ fontWeight: 700, textTransform: 'capitalize' }}
               variant="contained"
-              onClick={handleClickFirstAppointment}
+              onClick={handleClickToFirstAppointment}
             >
               Prendre Rendez-Vous
             </Button>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserProps, ValueSubmitProps } from '../@types';
+import { UserProps } from '../@types';
 
 const backEndUrl = 'http://localhost:3000';
 
@@ -36,9 +36,19 @@ export const getSpecificUnavailableDays = () => {
     .catch((err) => console.log(err));
 };
 
-export const fetchAddAppointment = (userId: number, data: ValueSubmitProps) => {
+export const fetchAddAppointment = (data: any) => {
   return apiBackEnd
-    .post(`/client/${userId}/appointment`, data)
+    .post(`/client/${data.id}/appointment`, data)
+    .then((res) => res.data)
+    .catch((err) => console.log('err: ', err));
+};
+
+export const fetchDeleteAppointment = (
+  appointmentId: number,
+  userInfos: any
+) => {
+  return apiBackEnd
+    .patch(`/appointment/${appointmentId}`, userInfos)
     .then((res) => res.data)
     .catch((err) => console.log('err: ', err));
 };

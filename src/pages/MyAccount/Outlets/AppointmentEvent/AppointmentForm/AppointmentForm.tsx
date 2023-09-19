@@ -25,7 +25,6 @@ import { AlertError } from '../../../../../components/Layouts/Alert/AlertBox';
 import { useUser, useUserInformations } from '../../../../../store/store';
 // CSS
 import './style.scss';
-import { ValueSubmitProps } from '../../../../../@types';
 import PaiementTotal from './AppointmentPaiement/AppointmentPaiement';
 
 export default function AppointmentForm({
@@ -44,61 +43,72 @@ export default function AppointmentForm({
   const filterDates = (): string[][] => {
     return appointmentsDates.filter((testDates) => {
       const [bookedDate] = testDates;
-      const [year, month, day]: string[] = bookedDate.split('-');
-
-      return (
-        parseInt(year, 10) === selectionDate[0] &&
-        parseInt(month, 10) === selectionDate[1] &&
-        parseInt(day, 10) === selectionDate[2]
-      );
+      if (selectionDate[0]) {
+        return bookedDate === selectionDate[0];
+      }
     });
   };
 
   const filterHours = () => {
     const dates = filterDates();
+    console.log('dates: ', dates);
     const splitHoursFilteredArray: number[] = [];
     dates.forEach((date) => {
-      const splitHours = date[1].split(':')[0].split('')[1];
-      splitHoursFilteredArray.push(parseInt(splitHours, 10));
+      const splitHours = date[1].split(':')[0];
+      splitHoursFilteredArray.push(parseInt(splitHours, 10) + 2);
     });
     return splitHoursFilteredArray;
-  };
-
-  const onSubmit = async (userInfos, data: ValueSubmitProps) => {
-    try {
-      console.log('userInfos: ', userInfos);
-      // if (userInfos.id !== null) {
-      //   const result = await fetchAddAppointment(userInfos, data);
-      //   console.log('result new Appointment: ', result);
-      // }
-    } catch (error) {}
   };
 
   function availableItemSlots() {
     const filteredHours = filterHours();
     const availableSlot = [];
+
     if (selectionDate.length > 0) {
-      if (filteredHours.length === 0) {
-        for (let i = 15; i < 20; i++) {
+      for (let i = 15; i < 20; i++) {
+        if (!filteredHours.includes(i)) {
           const menuItem = <MenuItem key={i} value={i}>{`${i}h00`}</MenuItem>;
           availableSlot.push(menuItem);
-        }
-      } else {
-        for (let i = 155; i < 20; i++) {
-          filteredHours.forEach((item) => {
-            if (item !== i) {
-              const menuItem = (
-                <MenuItem key={i} value={i}>{`${i}h00`}</MenuItem>
-              );
-              availableSlot.push(menuItem);
-            }
-          });
         }
       }
     }
 
     return availableSlot;
   }
+
+  const reductionPaiementIfStudent = (studentStatus: boolean) => {
+    if (studentStatus) {
+      return 40;
+    }
+    return 50;
+  };
+
+  const onSubmit = async (userInformations, data) => {
+    console.log('userInformations: ', userInformations);
+    console.log('data: ', data);
+    try {
+      const selectedDate = new Date(
+        `${data.appointmentDate}T${data.appointmentHour}:00:00`
+      );
+      const utcDate = new Date(selectedDate.toUTCString());
+
+      const jsonToSend = {
+        ...userInformations,
+        ...data,
+        date: utcDate.toISOString(), // Utiliser la date UTC
+        studentPayment: reductionPaiementIfStudent(userInformations.student),
+      };
+
+      if (userInfos.id !== null) {
+        const result = await fetchAddAppointment(jsonToSend);
+        if (result) {
+          navigate('/mon-compte');
+        }
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  };
 
   useEffect(() => {
     if (!isConnected) {
@@ -120,8 +130,9 @@ export default function AppointmentForm({
         comments: Yup.string(),
       })}
       onSubmit={(values, action) => {
-        console.log('ENTRER DANS onSUBMIT');
         onSubmit(userInfos, values);
+        // console.log('userInfos: ', userInfos);
+        // console.log('values: ', values);
         // alert(JSON.stringify(values, null, 2));
       }}
     >

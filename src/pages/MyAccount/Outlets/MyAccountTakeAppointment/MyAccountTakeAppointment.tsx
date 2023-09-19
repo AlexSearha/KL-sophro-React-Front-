@@ -7,7 +7,7 @@ import AppointmentForm from '../AppointmentEvent/AppointmentForm/AppointmentForm
 import './style.scss';
 
 function MyAccountTakeAppointment() {
-  const [userAppointments] = useUser((state) => [state.appointments]);
+  const userAppointments = useUser((state) => state.appointments);
 
   const getAppointmentPatch = () => {
     const result: string[][] = [];
@@ -24,7 +24,7 @@ function MyAccountTakeAppointment() {
   return (
     <div className="take-appointment">
       <h2>
-        Prenez <span>votre rendez-vous</span>
+        Prenez votre <span>rendez-vous</span>
       </h2>
       <div className="take-appointment__form-container">
         <AppointmentForm appointmentsDates={getAppointmentPatch()} />

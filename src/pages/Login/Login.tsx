@@ -50,8 +50,8 @@ function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'alexis.marouf@hotmail.fr',
+      password: 'SEAsons2016*',
     },
     validationSchema: Yup.object({
       email: Yup.string()

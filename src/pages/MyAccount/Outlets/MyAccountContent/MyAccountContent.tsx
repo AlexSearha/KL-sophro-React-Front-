@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useUser, useUserInformations } from '../../../../store/store';
-import AppointmentEvent from '../AppointmentEvent/AppointmentEvent';
+import AppointmentEvent from '../AppointmentEvent/AppointmentForm/AppointmentEvent/AppointmentEvent';
 
 // CSS
 import './style.scss';

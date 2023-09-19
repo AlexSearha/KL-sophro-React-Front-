@@ -4,14 +4,16 @@ export interface TestProp {
 }
 
 // ZUSTAND States
-export interface UserState {
+export interface UserStateProps {
   isConnected: boolean;
+  isAppointmentUpdated: boolean;
   appointments?: AppointmentProps[];
   selectionDate?: string[];
   unavailabilityFrom: number | null;
   unavailabilityTo: number | null;
   specificUnavailabilitesDates: string[];
   UpdateIsConnected: (value: boolean) => void;
+  UpdateIsAppointmentUpdated: () => void;
   UpdateAppointments: (value: AppointmentProps[]) => void;
   SetSelectionDate: (value: string[]) => void;
   SetUnavailabilityFrom: (value: number) => void;
@@ -19,7 +21,7 @@ export interface UserState {
   SetSpecificUnavailabilitesDates: (values: string[]) => void;
 }
 
-export interface UserInformations {
+export interface UserInformationsProps {
   userInfos: {
     id: number | null;
     firstname?: string;
@@ -30,7 +32,7 @@ export interface UserInformations {
   UpdateUserInfos: (value: any) => void;
 }
 
-export interface UserNavigation {
+export interface UserNavigationProps {
   folderEmplacement: string;
   UpdateFolderEmplacement: (value: string) => void;
 }
@@ -69,8 +71,8 @@ export interface AppointmentProps {
   reporting: string;
   exercices: string;
   paid: boolean;
-  paiment_due: string;
-  paiment_value: string;
+  payment_due: string;
+  payment_value: string;
   client_id: number;
   doctor_id: number;
   protocol_id: number;

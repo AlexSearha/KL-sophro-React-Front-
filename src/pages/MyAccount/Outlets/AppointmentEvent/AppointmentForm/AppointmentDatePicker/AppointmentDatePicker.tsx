@@ -15,6 +15,8 @@ interface Props extends FieldConfig {
 }
 
 function AppointmentDatePicker({ label, ...props }: Props) {
+  const { setFieldValue } = useFormikContext();
+
   const [
     SetSelectionDate,
     unavailabilityFrom,
@@ -26,7 +28,6 @@ function AppointmentDatePicker({ label, ...props }: Props) {
     state.unavailabilityTo,
     state.specificUnavailabilitesDates,
   ]);
-  const { setFieldValue } = useFormikContext();
 
   const handleDateChange = (date: Date | null) => {
     if (date) {

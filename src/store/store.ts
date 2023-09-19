@@ -1,14 +1,21 @@
 import { create } from 'zustand';
-import { UserInformations, UserNavigation, UserState } from '../@types';
+import {
+  UserInformationsProps,
+  UserNavigationProps,
+  UserStateProps,
+} from '../@types';
 
-const useUser = create<UserState>()((set) => ({
+const useUser = create<UserStateProps>()((set) => ({
   isConnected: false,
+  isAppointmentUpdated: false,
   appointments: [],
   selectionDate: [],
   unavailabilityFrom: null,
   unavailabilityTo: null,
   specificUnavailabilitesDates: [],
   UpdateIsConnected: (value) => set(() => ({ isConnected: value })),
+  UpdateIsAppointmentUpdated: () =>
+    set((state) => ({ isAppointmentUpdated: !state.isAppointmentUpdated })),
   UpdateAppointments: (value) => set(() => ({ appointments: value })),
   SetSelectionDate: (value) => set(() => ({ selectionDate: value })),
   SetUnavailabilityFrom: (value) => set(() => ({ unavailabilityFrom: value })),
@@ -17,12 +24,12 @@ const useUser = create<UserState>()((set) => ({
     set(() => ({ specificUnavailabilitesDates: value })),
 }));
 
-const useUserNavigation = create<UserNavigation>()((set) => ({
+const useUserNavigation = create<UserNavigationProps>()((set) => ({
   folderEmplacement: '',
   UpdateFolderEmplacement: (value) => set(() => ({ folderEmplacement: value })),
 }));
 
-const useUserInformations = create<UserInformations>()((set) => ({
+const useUserInformations = create<UserInformationsProps>()((set) => ({
   userInfos: {
     id: null,
     firstname: '',
