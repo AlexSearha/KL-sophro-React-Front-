@@ -4,22 +4,35 @@ export interface TestProp {
 }
 
 // ZUSTAND States
-export interface UserState {
+export interface UserStateProps {
   isConnected: boolean;
+  isAppointmentUpdated: boolean;
+  appointments?: AppointmentProps[];
+  selectionDate?: string[];
+  unavailabilityFrom: number | null;
+  unavailabilityTo: number | null;
+  specificUnavailabilitesDates: string[];
   UpdateIsConnected: (value: boolean) => void;
+  UpdateIsAppointmentUpdated: () => void;
+  UpdateAppointments: (value: AppointmentProps[]) => void;
+  SetSelectionDate: (value: string[]) => void;
+  SetUnavailabilityFrom: (value: number) => void;
+  SetUnavailabilityTo: (value: number) => void;
+  SetSpecificUnavailabilitesDates: (values: string[]) => void;
 }
 
-export interface UserInformations {
+export interface UserInformationsProps {
   userInfos: {
     id: number | null;
-    firstname?: string | null;
+    firstname?: string;
     lastname: string;
     email: string;
+    student: boolean | null;
   };
   UpdateUserInfos: (value: any) => void;
 }
 
-export interface UserNavigation {
+export interface UserNavigationProps {
   folderEmplacement: string;
   UpdateFolderEmplacement: (value: string) => void;
 }
@@ -28,4 +41,54 @@ export interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+export interface UserProps {
+  id: number;
+  firstname: string;
+  lastname: string;
+  password: string;
+  email: string;
+  dateofbirth: string;
+  address: string;
+  photo: string;
+  phone_number: string;
+  student: boolean;
+  newsletter: boolean;
+  notification: boolean;
+  confirmed: boolean;
+  role_id: number;
+  created_at: string;
+  updated_at: string;
+  appointments: Appointment[];
+}
+
+export interface AppointmentProps {
+  id: number;
+  date: string;
+  status: string;
+  online: boolean;
+  reporting: string;
+  exercices: string;
+  paid: boolean;
+  payment_due: string;
+  payment_value: string;
+  client_id: number;
+  doctor_id: number;
+  protocol_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UnavailableProps {
+  id: number;
+  date: string;
+  days_of_week_from: number;
+  days_of_week_to: number;
+}
+
+export interface ValueSubmitProps {
+  appointmentDate: string;
+  appointmentHour: string;
+  comments: string;
 }

@@ -11,10 +11,11 @@
   &__menu {
     display: flex;
     flex-direction: column;
-    padding: 0 3rem;
-    justify-content: space-evenly;
+    padding: 1rem 3rem;
+    justify-content: start;
     align-items: flex-start;
     width: 25%;
+    gap: 2rem;
   }
 
   &__inputs {

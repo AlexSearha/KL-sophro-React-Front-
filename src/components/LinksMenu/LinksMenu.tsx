@@ -29,7 +29,7 @@ function LinksMenu() {
       <Link
         color={theme.palette.primary.contrastText}
         underline="hover"
-        href="https://google.fr"
+        href="/contact"
       >
         Contact
       </Link>

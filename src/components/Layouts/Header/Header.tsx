@@ -6,8 +6,13 @@ import MobileMyAccountMenu from './MobileMyAccountMenu/MobileMyAccountMenu';
 
 import Logo from '../../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
 import './style.scss';
+import { useUser } from '../../../store/store';
 
 function HeaderMobile() {
+  const [isConnected] = useUser((state) => [state.isConnected]);
+  const linkIfConnected = isConnected
+    ? '/mon-compte/prendre-rdv'
+    : '/connexion';
   return (
     <header className="header">
       <Link to="/">
@@ -18,7 +23,7 @@ function HeaderMobile() {
         />
       </Link>
       <div className="header__buttons-container">
-        <Link to="/connexion">
+        <Link to={linkIfConnected}>
           <Button
             variant="contained"
             sx={{ fontSize: '0.7rem', fontWeight: '700' }}

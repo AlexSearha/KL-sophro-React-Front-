@@ -1,7 +1,7 @@
 import { apiBackEnd } from '../api/api';
 
 // eslint-disable-next-line consistent-return
-async function regenerateAccessToken() {
+export default async function regenerateAccessToken() {
   const token = apiBackEnd.defaults.headers.common.Authorization;
   try {
     const result = await apiBackEnd.post('/regen-token', {
@@ -19,5 +19,3 @@ async function regenerateAccessToken() {
     }
   }
 }
-
-export default regenerateAccessToken;

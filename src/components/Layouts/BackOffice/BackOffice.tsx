@@ -1,7 +1,7 @@
 import './style.scss';
 
 function BackOfficeLayout() {
-  return <div>Content</div>;
+  return <div>BackOffice</div>;
 }
 
 export default BackOfficeLayout;

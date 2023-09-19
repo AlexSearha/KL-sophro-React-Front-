@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as v;
+
+.take-appointment {
+  display: flex;
+  flex-direction: column;
+
+  & h2 {
+    display: block;
+    text-align: start;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  & span {
+    color: v.$color-primary;
+  }
+
+  &__form-container {
+    padding: 0 2rem;
+  }
+}

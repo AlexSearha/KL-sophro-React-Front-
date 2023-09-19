@@ -81,6 +81,18 @@
   }
 }
 
+.wishToCancel {
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  & p {
+    margin-bottom: 1rem;
+  }
+}
+
 .booked,
 .done {
   background-color: #ebf8ef;

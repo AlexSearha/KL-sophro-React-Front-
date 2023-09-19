@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 // MUI
-import { Alert, Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 // STORE
-import { useMutation } from '@tanstack/react-query';
 import { useUser } from '../../store/store';
 // COMPONENTS
 import StudentSelect from './StudentSelect/StudentSelect';
 import DateOfBirthDatePicker from './DateOfBirthDatePicker/DateOfBirthDatePicker';
+import { AlertError, AlertInfo } from '../../components/Layouts/Alert/AlertBox';
 // API
 import { apiBackEnd } from '../../api/api';
 // CSS
@@ -23,31 +23,40 @@ interface FormValues {
   password: string;
   checkpass: string;
   dateOfBirth: string;
-  student: string;
+  student: boolean;
 }
 
 function SignUpPage() {
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isConnected, UpdateIsConnected] = useUser((state) => [
-    state.isConnected,
-    state.UpdateIsConnected,
-  ]);
+  const [infoMessage, setInfoMessage] = useState<string>('');
+  const isConnected = useUser((state) => state.isConnected);
 
   const navigate = useNavigate();
 
-  const fetchSignUp = useMutation({
-    mutationFn: (data) => {
-      return apiBackEnd.post('/client', data);
-    },
-  });
+  const fetchSignUp = async (data: FormValues, formikBag: any) => {
+    try {
+      const fetchResult = apiBackEnd.post('/client', data);
+      console.log('fetchResult: ', fetchResult);
+      setInfoMessage(
+        'Un email de confirmation vient de vous être envoyé sur votre adresse email'
+      );
+      setTimeout(() => {
+        formikBag.resetForm();
+        navigate('/connexion');
+      }, 3000);
+    } catch (error: any) {
+      if (error.response.status === 404) {
+        setErrorMessage(
+          'Une erreur est survenue pendant votre inscription, veuillez recommencer'
+        );
+      }
+    }
+  };
 
-  function fetchSubmit(values: FormValues) {
-    fetchSignUp.mutate(values);
-  }
-  // Redirect to HOME if not connected
+  // Redirect to MYACCOUNT if connected
   useEffect(() => {
     if (isConnected) {
-      navigate('/');
+      navigate('/mon-compte');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
@@ -59,12 +68,9 @@ function SignUpPage() {
     password: '',
     checkpass: '',
     dateOfBirth: '',
-    student: '',
+    student: false,
   };
 
-  const handleSubmit = (values: FormValues) => {
-    fetchSubmit(values);
-  };
   return (
     <Formik
       initialValues={initialValues}
@@ -79,14 +85,14 @@ function SignUpPage() {
           .required('Votre mot de passe est requis'),
         checkpass: Yup.string()
           .oneOf(
-            [Yup.ref('password'), null],
+            [Yup.ref('password')],
             'Les mots de passe ne correspondent pas'
           )
           .required('Confirmation mot de passe requis'),
         dateOfBirth: Yup.string().required('Votre age est requis'),
-        student: Yup.string().required('Votre statut étudiant est requis'),
+        student: Yup.boolean().required('Votre statut étudiant est requis'),
       })}
-      onSubmit={handleSubmit}
+      onSubmit={fetchSignUp}
     >
       {(formik) => (
         <>
@@ -176,12 +182,11 @@ function SignUpPage() {
                 />
                 <StudentSelect name="student" />
               </div>
-              <Alert className="error-alert" variant="filled" severity="error">
-                Utilisateur déja inscrit
-              </Alert>
+              {errorMessage ? <AlertError message={errorMessage} /> : null}
+              {infoMessage ? <AlertInfo message={infoMessage} /> : null}
               <Button
                 fullWidth
-                sx={{ fontWeight: 700 }}
+                sx={{ fontWeight: 700, mt: 2 }}
                 variant="contained"
                 type="submit"
               >

@@ -1,36 +1,45 @@
-import { useEffect } from 'react';
+// REACT
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { validate } from 'email-validator';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+// FORMS & VALIDATION
+import { validate } from 'email-validator';
 import * as Yup from 'yup';
+// MUI
 import { Box, Button, TextField } from '@mui/material';
-import HeaderMobile from '../../components/Layouts/Header/Header';
+// COMPONENT
+import { AlertError } from '../../components/Layouts/Alert/AlertBox';
+// API
 import { apiBackEnd } from '../../api/api';
-
-import './style.scss';
+// STORE
 import { useUser, useUserInformations } from '../../store/store';
-import FooterMobile from '../../components/Layouts/Footer/Footer';
+// CSS
+import './style.scss';
 
 function LoginPage() {
   const [isConnected, UpdateIsConnected] = useUser((state) => [
     state.isConnected,
     state.UpdateIsConnected,
   ]);
-  const [userInfos, UpdateUserInfos] = useUserInformations((state) => [
-    state.userInfos,
-    state.UpdateUserInfos,
-  ]);
+  const [errorLoginMessage, setErrorLoginMessage] = useState<string>('');
+  const UpdateUserInfos = useUserInformations((state) => state.UpdateUserInfos);
 
   const navigate = useNavigate();
 
-  const fetchLogin = useMutation({
-    mutationFn: async (newTodo) => {
+  const fetchLogin = async (newTodo: { email: string; password: string }) => {
+    try {
       const result = await apiBackEnd.post('/login', newTodo);
-      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data}`;
+      apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data.accessToken}`;
+      UpdateIsConnected(true);
       UpdateUserInfos(result.data.user);
-    },
-  });
+    } catch (error: any) {
+      if (error.response.status === 401 || error.response.status === 404) {
+        setErrorLoginMessage(
+          'Votre email/mot de passe est incorrect, recommencez.'
+        );
+      }
+    }
+  };
 
   useEffect(() => {
     if (isConnected) {
@@ -41,8 +50,8 @@ function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: 'johndoe@hotmail.fr',
-      password: 'coucou',
+      email: 'alexis.marouf@hotmail.fr',
+      password: 'SEAsons2016*',
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -54,8 +63,7 @@ function LoginPage() {
     }),
     onSubmit: (values) => {
       if (validate(values.email)) {
-        fetchLogin.mutate(values);
-        UpdateIsConnected(true);
+        fetchLogin(values);
       }
     },
   });
@@ -90,6 +98,9 @@ function LoginPage() {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          {errorLoginMessage ? (
+            <AlertError message={errorLoginMessage} />
+          ) : null}
           <Button
             fullWidth
             variant="contained"

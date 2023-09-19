@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { Button, ThemeProvider, createTheme } from '@mui/material';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import TodayIcon from '@mui/icons-material/Today';
 import LogoutIcon from '@mui/icons-material/Logout';
 // API
 import { apiBackEnd } from '../../../api/api';
@@ -51,7 +51,8 @@ function MyAccountMenu() {
         <ul className="setting-menu__ul">
           <li>
             <Button
-              startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
+              sx={{ textTransform: 'capitalize' }}
+              startIcon={<TodayIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
               onClick={() => navigate('/mon-compte')}
@@ -61,26 +62,29 @@ function MyAccountMenu() {
           </li>
           <li>
             <Button
-              startIcon={<FolderOpenIcon style={{ fontSize: 30 }} />}
+              sx={{ textTransform: 'capitalize' }}
+              startIcon={<EditCalendarIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
-              onClick={() => navigate('/mon-compte/seances')}
+              onClick={() => navigate('/mon-compte/prendre-rdv')}
             >
-              Seances
+              Prendre rdv
             </Button>
           </li>
           <li>
             <Button
+              sx={{ textTransform: 'capitalize' }}
               startIcon={<ManageAccountsIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
               onClick={() => navigate('/mon-compte/parametres')}
             >
-              Informations
+              Paramètres
             </Button>
           </li>
           <li>
             <Button
+              sx={{ textTransform: 'capitalize' }}
               startIcon={<LogoutIcon style={{ fontSize: 30 }} />}
               className="account-sidemenu"
               variant="text"
