@@ -28,13 +28,20 @@ export interface UserInformationsProps {
     lastname: string;
     email: string;
     student: boolean | null;
+    address: string;
+    phone_number: string;
+    notification: boolean | null;
+    newsletter: boolean | null;
+    photo: string;
   };
   UpdateUserInfos: (value: any) => void;
 }
 
 export interface UserNavigationProps {
   folderEmplacement: string;
+  isLoading: boolean;
   UpdateFolderEmplacement: (value: string) => void;
+  UpdateIsLoading: () => void;
 }
 
 export interface TabPanelProps {
@@ -91,4 +98,18 @@ export interface ValueSubmitProps {
   appointmentDate: string;
   appointmentHour: string;
   comments: string;
+}
+
+// API GOUV ADDRESS
+export interface APIaddressMainProps {
+  features: APIaddressFeaturesProps[];
+}
+
+export interface APIaddressFeaturesProps {
+  properties: APIaddressPropertiessProps;
+}
+
+export interface APIaddressPropertiessProps {
+  label: string;
+  id: string;
 }

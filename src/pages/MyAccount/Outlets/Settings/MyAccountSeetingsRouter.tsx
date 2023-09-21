@@ -9,7 +9,7 @@ import './style.scss';
 
 function MyAccountSettingsRouter() {
   return (
-    <>
+    <div className="linkcard-container">
       <LinkCard
         description="Ajoutez ou modifiez vos coordonées et informations de contact"
         title="Informations Personnelles"
@@ -28,7 +28,7 @@ function MyAccountSettingsRouter() {
         link="/mon-compte/parametres/notifications"
         icon={NotificationsActiveIcon}
       />
-    </>
+    </div>
   );
 }
 

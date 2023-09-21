@@ -26,7 +26,9 @@ const useUser = create<UserStateProps>()((set) => ({
 
 const useUserNavigation = create<UserNavigationProps>()((set) => ({
   folderEmplacement: '',
+  isLoading: false,
   UpdateFolderEmplacement: (value) => set(() => ({ folderEmplacement: value })),
+  UpdateIsLoading: () => set((state) => ({ isLoading: !state.isLoading })),
 }));
 
 const useUserInformations = create<UserInformationsProps>()((set) => ({
@@ -36,6 +38,11 @@ const useUserInformations = create<UserInformationsProps>()((set) => ({
     lastname: '',
     email: '',
     student: null,
+    address: '',
+    phone_number: '',
+    notification: null,
+    newsletter: null,
+    photo: '',
   },
   UpdateUserInfos: (value) =>
     set(() => ({
@@ -45,6 +52,11 @@ const useUserInformations = create<UserInformationsProps>()((set) => ({
         lastname: value.lastname,
         email: value.email,
         student: value.student,
+        address: value.address,
+        phone_number: value.phone_number,
+        notification: value.notification,
+        newsletter: value.newsletter,
+        photo: value.photo,
       },
     })),
 }));

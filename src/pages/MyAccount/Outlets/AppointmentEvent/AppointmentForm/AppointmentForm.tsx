@@ -99,6 +99,7 @@ export default function AppointmentForm({
 
       if (userInfos.id !== null) {
         const result = await fetchAddAppointment(jsonToSend);
+
         if (result) {
           navigate('/mon-compte');
         }

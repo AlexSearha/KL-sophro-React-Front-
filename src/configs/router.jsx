@@ -13,7 +13,7 @@ import MyAccountTakeAppointment from '../pages/MyAccount/Outlets/MyAccountTakeAp
 import Contact from '../pages/Contact/Contact';
 import MyAccountSettingsLayout from '../components/Layouts/MyAccount/MyAccountSettingsLayout/MyAccountSettings';
 import MyAccountSettingsRouter from '../pages/MyAccount/Outlets/Settings/MyAccountSeetingsRouter';
-import PersonnalInfos from '../pages/MyAccount/Outlets/Settings/PersonnalInfos/PersonnalInfos';
+import PersonalInfos from '../pages/MyAccount/Outlets/Settings/PersonnalInfos/PersonnalInfos';
 
 function RouterDom() {
   return (
@@ -32,7 +32,7 @@ function RouterDom() {
             <Route index element={<MyAccountSettingsRouter />} />
             <Route
               path="informations-personnelles"
-              element={<PersonnalInfos />}
+              element={<PersonalInfos />}
             />
             <Route path="securite" element={<MyAccountSettingsRouter />} />
             <Route path="notifications" element={<MyAccountSettingsRouter />} />

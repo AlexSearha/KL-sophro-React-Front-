@@ -1,0 +1,22 @@
+.linkcard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 700px;
+}
+
+.personal-infos {
+  width: 100%;
+
+  &-container {
+    display: flex;
+    flex-direction: row;
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
