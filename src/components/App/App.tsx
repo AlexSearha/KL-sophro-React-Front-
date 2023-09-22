@@ -2,7 +2,7 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider, frFR } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// ROUTER DOM
+// ROUTER
 import RouterDom from '../../configs/router';
 // Import DayJS
 import 'dayjs/locale/fr';

@@ -11,7 +11,6 @@ import { useUserInformations } from '../../../../../../store/store';
 // TYPES
 import { APIaddressFeaturesProps } from '../../../../../../@types';
 // CSS
-
 import './style.scss';
 
 interface InputUpdateFormProps {
@@ -46,6 +45,7 @@ function InputUpdateForm({ label, name, userId }: InputUpdateFormProps) {
   const monitorAddressResult = addressResult?.map((address) => {
     return (
       <div
+        className="dropdown-element"
         key={address.properties.id}
         onClick={() => setValue(address.properties.label)}
         onKeyDown={() => console.log('coucou')}
@@ -62,35 +62,38 @@ function InputUpdateForm({ label, name, userId }: InputUpdateFormProps) {
         if (result) {
           setAddressResult(result.features);
         }
-        console.log('FetchAPIaddressResult: ', result);
       }
     }
     fetchAddress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  React.useEffect(() => {
-    console.log('addressResult: ', addressResult);
-  }, [addressResult]);
-
   return (
     <div className="textfield-updateform">
       <form className="textfield-updateform__form" onSubmit={handleSubmit}>
-        <TextField
-          label={label}
-          value={value}
-          name={name}
-          onFocus={() => {
-            setUpdateError(false);
-            setUpdateSuccess(false);
-          }}
-          onChange={(e) => setValue(e.target.value)}
-          variant="outlined"
-          inputProps={name === 'phone_number' ? { maxLength: 10 } : {}}
-        />
-        {addressResult[0]?.properties.label === value || value === ''
-          ? null
-          : monitorAddressResult}
+        <div className="textfield-updateform__form-container">
+          <TextField
+            fullWidth
+            label={label}
+            value={value}
+            name={name}
+            onFocus={() => {
+              setUpdateError(false);
+              setUpdateSuccess(false);
+            }}
+            onChange={(e) => setValue(e.target.value)}
+            variant="outlined"
+            inputProps={name === 'phone_number' ? { maxLength: 10 } : {}}
+          />
+
+          {addressResult[0]?.properties.label === value ||
+          value === '' ||
+          value.length < 5 ? null : (
+            <div className="textfield-updateform__form-dropdown">
+              {monitorAddressResult}
+            </div>
+          )}
+        </div>
         <Button
           type="submit"
           sx={{ textTransform: 'initial', fontSize: 15, fontWeight: 700 }}

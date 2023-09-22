@@ -1,12 +1,16 @@
+// REACT
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
-
+// MUI
+import Button from '@mui/material/Button';
+// LAYOUTS
 import MobileMenu from './MobileMenu/MobileMenu';
 import MobileMyAccountMenu from './MobileMyAccountMenu/MobileMyAccountMenu';
-
-import Logo from '../../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
-import './style.scss';
+// STORE
 import { useUser } from '../../../store/store';
+// ASSETS
+import Logo from '../../../assets/cropped-Logo-Katia-lemaire-sophrologie2-255x103.png';
+// CSS
+import './style.scss';
 
 function HeaderMobile() {
   const [isConnected] = useUser((state) => [state.isConnected]);

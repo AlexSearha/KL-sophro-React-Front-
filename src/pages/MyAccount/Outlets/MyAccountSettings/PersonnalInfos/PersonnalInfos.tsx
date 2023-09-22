@@ -5,14 +5,11 @@ import './style.scss';
 
 function PersonalInfos() {
   const userInfos = useUserInformations((state) => state.userInfos);
-  useEffect(() => {
-    console.log('userInfosEFFECT: ', userInfos);
-  }, [userInfos]);
   return (
     <div className="personal-infos">
       <div className="personal-infos-container">
         <div className="personal-infos-container__userInfos">
-          <h2>Infos Client</h2>
+          <h3>Infos Client</h3>
           <div className="personal-infos-container__userInfos-firstname">
             {`Prenom: ${userInfos.firstname}`}
           </div>
@@ -30,7 +27,7 @@ function PersonalInfos() {
           <div className="personal-infos-container__userInfos-phone">
             {userInfos.phone_number
               ? `Télephone: ${userInfos.phone_number}`
-              : `Téléphone: Pas de téléphone de renseigné`}
+              : `Téléphone: Pas de numéro de renseigné`}
           </div>
         </div>
         <div className="personal-infos-container__form">
@@ -46,7 +43,7 @@ function PersonalInfos() {
           />
           <InputUpdateForm
             userId={userInfos.id}
-            label="adresse"
+            label="Adresse"
             name="address"
           />
           <InputUpdateForm

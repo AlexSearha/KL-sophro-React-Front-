@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { APIaddressGouvProps, APIaddressMainProps, UserProps } from '../@types';
+import { APIaddressMainProps, UserProps } from '../@types';
 
 interface UpdateDataProps {
   [key: string]: string;
@@ -21,14 +21,18 @@ export const getLogin = () => {
   return apiBackEnd
     .get<UserProps>('/client')
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getAllAppointments = (userId: number) => {
   return apiBackEnd
     .get<UserProps>(`/client/${userId}`)
     .then((res) => res.data.appointments)
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const updateClientInfos = (
@@ -38,28 +42,36 @@ export const updateClientInfos = (
   return apiBackEnd
     .patch<UserProps>(`/client/${userId}`, data)
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getUnavailableDaysOfTheWeek = () => {
   return apiBackEnd
     .get('/unavailability/1')
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getSpecificUnavailableDays = () => {
   return apiBackEnd
     .get('/unavailability')
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const fetchAddAppointment = (data: any) => {
   return apiBackEnd
     .post(`/client/${data.id}/appointment`, data)
     .then((res) => res.data)
-    .catch((err) => console.log('err: ', err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const fetchDeleteAppointment = (
@@ -69,14 +81,28 @@ export const fetchDeleteAppointment = (
   return apiBackEnd
     .patch(`/appointment/${appointmentId}`, userInfos)
     .then((res) => res.data)
-    .catch((err) => console.log('err: ', err));
+    .catch((err) => {
+      throw err;
+    });
 };
 
+export const fetchResetPassword = (data: any) => {
+  return apiBackEnd
+    .post(`/check-password`, data)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+// ADDRESS API
 export const fetchAddressAPI = (addressToSearch: string) => {
   return addressGouvAPI
     .get<APIaddressMainProps>(
       `/?q=${addressToSearch}&type=housenumber&autocomplete=1`
     )
     .then((res) => res.data)
-    .catch((err) => console.log('err: ', err));
+    .catch((err) => {
+      throw err;
+    });
 };

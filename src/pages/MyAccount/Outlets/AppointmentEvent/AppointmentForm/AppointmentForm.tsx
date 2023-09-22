@@ -51,7 +51,6 @@ export default function AppointmentForm({
 
   const filterHours = () => {
     const dates = filterDates();
-    console.log('dates: ', dates);
     const splitHoursFilteredArray: number[] = [];
     dates.forEach((date) => {
       const splitHours = date[1].split(':')[0];
@@ -183,7 +182,12 @@ export default function AppointmentForm({
                 helperText={formik.touched.comments && formik.errors.comments}
               />
               <PaiementTotal isStudent={userInfos.student} />
-              <Button fullWidth variant="contained" type="submit">
+              <Button
+                fullWidth
+                sx={{ textTransform: 'capitalize', fontWeight: 700 }}
+                variant="contained"
+                type="submit"
+              >
                 Réserver
               </Button>
             </div>

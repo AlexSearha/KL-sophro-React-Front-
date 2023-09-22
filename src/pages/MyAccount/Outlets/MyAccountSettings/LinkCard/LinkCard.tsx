@@ -10,6 +10,7 @@ interface LinkCardProps {
   link: string;
   title: string;
   description: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
     muiName: string;
   };

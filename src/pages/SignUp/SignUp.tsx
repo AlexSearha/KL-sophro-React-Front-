@@ -102,7 +102,7 @@ function SignUpPage() {
               sx={{ flexGrow: 1, mt: '1rem' }}
             >
               <h2>Inscription</h2>
-              <p>Créer votre compte pour accédes à votre espace</p>
+              <p>Créer votre compte pour acceder à votre espace</p>
               <div className="names">
                 <TextField
                   fullWidth

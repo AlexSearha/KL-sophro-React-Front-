@@ -92,7 +92,6 @@ function AppointmentEvent() {
       try {
         if (userInfos.id) {
           const appointments = await getAllAppointments(userInfos.id);
-          console.log('appointments: ', appointments);
           if (Array.isArray(appointments)) {
             UpdateUserAppointments(appointments);
             // setLoading(false); // Mettre à jour l'état de chargement une fois les données chargées

@@ -22,12 +22,6 @@ function MyAccountSettingsRouter() {
         link="/mon-compte/parametres/securite"
         icon={SecurityIcon}
       />
-      <LinkCard
-        description="Modifiez vos paramètres de notifications"
-        title="Notifications"
-        link="/mon-compte/parametres/notifications"
-        icon={NotificationsActiveIcon}
-      />
     </div>
   );
 }
