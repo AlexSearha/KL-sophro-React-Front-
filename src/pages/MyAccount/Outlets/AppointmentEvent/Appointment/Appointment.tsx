@@ -11,7 +11,7 @@ function Appointment({ item }: { item: AppointmentProps }) {
   const { id, status, exercices, date, payment_value: paimentValue } = item;
   const appointmentState = `appointment__part-two__state ${status}`;
   const getDate = date.split('T')[0].split('-');
-  const getHour = date.split('T')[1].split(':');
+  const [getHour, getMinutes] = date.split('T')[1].split(':');
 
   const changeTagStatusClassname = () => {
     if (status === 'booked') {
@@ -40,9 +40,9 @@ function Appointment({ item }: { item: AppointmentProps }) {
               Rendez-vous
             </div>
             <div className="appointment__part-one__hours-hour">
-              {`${parseInt(getHour[0], 10) + 2}h00 à ${
-                parseInt(getHour[0], 10) + 3
-              }h00`}
+              {`${parseInt(getHour, 10) + 2}h${parseInt(getMinutes, 10)} à ${
+                parseInt(getHour, 10) + 3
+              }h${parseInt(getMinutes, 10)}`}
             </div>
           </div>
           <div className="appointment__part-one__raport">
