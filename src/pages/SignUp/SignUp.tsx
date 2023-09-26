@@ -22,7 +22,8 @@ interface FormValues {
   email: string;
   password: string;
   checkpass: string;
-  dateOfBirth: string;
+  dateofbirth: string;
+  phone_number: string;
   student: boolean;
 }
 
@@ -67,7 +68,8 @@ function SignUpPage() {
     email: '',
     password: '',
     checkpass: '',
-    dateOfBirth: '',
+    dateofbirth: '',
+    phone_number: '',
     student: false,
   };
 
@@ -89,7 +91,10 @@ function SignUpPage() {
             'Les mots de passe ne correspondent pas'
           )
           .required('Confirmation mot de passe requis'),
-        dateOfBirth: Yup.string().required('Votre age est requis'),
+        dateofbirth: Yup.string().required('Votre age est requis'),
+        phone_number: Yup.string()
+          .min(10, 'Le numéor de téléphone doit faire au moins 10 chiffres')
+          .required('Votre numero de téléphone est requis'),
         student: Yup.boolean().required('Votre statut étudiant est requis'),
       })}
       onSubmit={fetchSignUp}
@@ -102,7 +107,7 @@ function SignUpPage() {
               sx={{ flexGrow: 1, mt: '1rem' }}
             >
               <h2>Inscription</h2>
-              <p>Créer votre compte pour accédes à votre espace</p>
+              <p>Créer votre compte pour acceder à votre espace</p>
               <div className="names">
                 <TextField
                   fullWidth
@@ -175,9 +180,27 @@ function SignUpPage() {
                   }
                 />
               </div>
+              <TextField
+                fullWidth
+                id="phoneNumber"
+                label="Numéro de téléphone"
+                name="phone_number"
+                type="tel"
+                autoComplete="off"
+                inputProps={{ maxLength: 10 }}
+                onChange={formik.handleChange}
+                value={formik.values.phone_number}
+                error={
+                  formik.touched.phone_number &&
+                  Boolean(formik.errors.phone_number)
+                }
+                helperText={
+                  formik.touched.phone_number && formik.errors.phone_number
+                }
+              />
               <div className="birth-student">
                 <DateOfBirthDatePicker
-                  name="dateOfBirth"
+                  name="dateofbirth"
                   label="Date de naissance"
                 />
                 <StudentSelect name="student" />

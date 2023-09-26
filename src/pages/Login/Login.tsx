@@ -31,6 +31,7 @@ function LoginPage() {
       const result = await apiBackEnd.post('/login', newTodo);
       apiBackEnd.defaults.headers.common.Authorization = `Bearer ${result.data.accessToken}`;
       UpdateIsConnected(true);
+      console.log('result.data.user: ', result.data.user);
       UpdateUserInfos(result.data.user);
     } catch (error: any) {
       if (error.response.status === 401 || error.response.status === 404) {

@@ -12,8 +12,11 @@ import MyAccountContent from '../pages/MyAccount/Outlets/MyAccountContent/MyAcco
 import MyAccountTakeAppointment from '../pages/MyAccount/Outlets/MyAccountTakeAppointment/MyAccountTakeAppointment';
 import Contact from '../pages/Contact/Contact';
 import MyAccountSettingsLayout from '../components/Layouts/MyAccount/MyAccountSettingsLayout/MyAccountSettings';
-import MyAccountSettingsRouter from '../pages/MyAccount/Outlets/Settings/MyAccountSeetingsRouter';
-import PersonnalInfos from '../pages/MyAccount/Outlets/Settings/PersonnalInfos/PersonnalInfos';
+import MyAccountSettingsRouter from '../pages/MyAccount/Outlets/MyAccountSettings/MyAccountSeetingsRouter';
+import PersonalInfos from '../pages/MyAccount/Outlets/MyAccountSettings/PersonnalInfos/PersonnalInfos';
+import MyAccountSettingsSecurity from '../pages/MyAccount/Outlets/MyAccountSettings/Security/MyAccountSettingsSecurity';
+import ForgottenPassword from '../pages/ForgottenPassword/ForgottenPassword';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
 
 function RouterDom() {
   return (
@@ -23,6 +26,8 @@ function RouterDom() {
           <Route index element={<Home />} />
           <Route path="connexion" element={<LoginPage />} />
           <Route path="inscription" element={<SignUpPage />} />
+          <Route path="mdp-oublie" element={<ForgottenPassword />} />
+          <Route path="reinit-mdp/:token" element={<ResetPassword />} />
           <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/mon-compte" element={<MyAccountLayout />}>
@@ -32,9 +37,9 @@ function RouterDom() {
             <Route index element={<MyAccountSettingsRouter />} />
             <Route
               path="informations-personnelles"
-              element={<PersonnalInfos />}
+              element={<PersonalInfos />}
             />
-            <Route path="securite" element={<MyAccountSettingsRouter />} />
+            <Route path="securite" element={<MyAccountSettingsSecurity />} />
             <Route path="notifications" element={<MyAccountSettingsRouter />} />
           </Route>
         </Route>

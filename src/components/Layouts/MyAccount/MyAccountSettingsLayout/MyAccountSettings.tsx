@@ -6,9 +6,7 @@ function MyAccountSettingsLayout() {
     <div className="myaccount-settings">
       <h2>Paramètres</h2>
       <div className="myaccount-settings__content">
-        <div className="myaccount-settings__content-outlet">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </div>
   );

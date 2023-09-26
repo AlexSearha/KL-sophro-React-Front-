@@ -41,6 +41,7 @@ export default function AppointmentForm({
   const navigate = useNavigate();
 
   const filterDates = (): string[][] => {
+    // console.log('appointmentsDates: ', appointmentsDates);
     return appointmentsDates.filter((testDates) => {
       const [bookedDate] = testDates;
       if (selectionDate[0]) {
@@ -49,9 +50,31 @@ export default function AppointmentForm({
     });
   };
 
+  function generateTimeSteps() {
+    const stepInterval = 1.5 * 60 * 60 * 1000;
+    const startTimeDate = new Date();
+    const endTimeDate = new Date();
+    startTimeDate.setHours(15, 0, 0, 0);
+    endTimeDate.setHours(20, 0, 0, 0);
+
+    const steps = [];
+    const currentTime = new Date(startTimeDate); // Cloner l'heure de départ
+
+    while (currentTime <= endTimeDate) {
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes();
+      // const stepTime = `${hours}h${minutes}`;
+      const stepTime = [hours, minutes];
+      steps.push(stepTime);
+
+      currentTime.setTime(currentTime.getTime() + stepInterval);
+    }
+
+    return steps;
+  }
+
   const filterHours = () => {
     const dates = filterDates();
-    console.log('dates: ', dates);
     const splitHoursFilteredArray: number[] = [];
     dates.forEach((date) => {
       const splitHours = date[1].split(':')[0];
@@ -61,19 +84,24 @@ export default function AppointmentForm({
   };
 
   function availableItemSlots() {
-    const filteredHours = filterHours();
-    const availableSlot = [];
+    const timeSteps = generateTimeSteps();
+    const takenHours = filterHours();
+    const availableItemSlotsVar: JSX.Element[] = [];
 
-    if (selectionDate.length > 0) {
-      for (let i = 15; i < 20; i++) {
-        if (!filteredHours.includes(i)) {
-          const menuItem = <MenuItem key={i} value={i}>{`${i}h00`}</MenuItem>;
-          availableSlot.push(menuItem);
-        }
+    timeSteps.forEach((elem) => {
+      const formatHour = elem[0].toString().padStart(2, '0');
+      const formatMinutes = elem[1].toString().padStart(2, '0');
+      if (!takenHours.includes(elem[0])) {
+        const hourList = (
+          <MenuItem
+            key={formatHour}
+            value={`${formatHour}h${formatMinutes}`}
+          >{`${formatHour}h${formatMinutes}`}</MenuItem>
+        );
+        availableItemSlotsVar.push(hourList);
       }
-    }
-
-    return availableSlot;
+    });
+    return availableItemSlotsVar;
   }
 
   const reductionPaiementIfStudent = (studentStatus: boolean) => {
@@ -84,9 +112,10 @@ export default function AppointmentForm({
   };
 
   const onSubmit = async (userInformations, data) => {
+    const [hours, minutes] = data.appointmentHour.split('h');
     try {
       const selectedDate = new Date(
-        `${data.appointmentDate}T${data.appointmentHour}:00:00`
+        `${data.appointmentDate}T${hours}:${minutes}:00`
       );
       const utcDate = new Date(selectedDate.toUTCString());
 
@@ -99,6 +128,7 @@ export default function AppointmentForm({
 
       if (userInfos.id !== null) {
         const result = await fetchAddAppointment(jsonToSend);
+
         if (result) {
           navigate('/mon-compte');
         }
@@ -182,7 +212,12 @@ export default function AppointmentForm({
                 helperText={formik.touched.comments && formik.errors.comments}
               />
               <PaiementTotal isStudent={userInfos.student} />
-              <Button fullWidth variant="contained" type="submit">
+              <Button
+                fullWidth
+                sx={{ textTransform: 'capitalize', fontWeight: 700 }}
+                variant="contained"
+                type="submit"
+              >
                 Réserver
               </Button>
             </div>

@@ -1,5 +1,8 @@
+// REACT
+import { useNavigate } from 'react-router';
 // MUI
-import { Button, Link } from '@mui/material';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -8,6 +11,11 @@ import LinksMenu from '../../LinksMenu/LinksMenu';
 import './style.scss';
 
 function FooterMobile() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/mon-compte/prendre-rdv');
+  };
+
   return (
     <footer className="footer">
       <div className="footer__container">
@@ -19,7 +27,11 @@ function FooterMobile() {
           </p>
           <div className="footer__need-appointment">
             <h3>Besoin d&apos;un rendez-vous ?</h3>
-            <Button variant="contained" sx={{ width: '45%' }}>
+            <Button
+              onClick={handleClick}
+              variant="contained"
+              sx={{ width: '45%' }}
+            >
               JE PRENDS LE MIEN
             </Button>
           </div>

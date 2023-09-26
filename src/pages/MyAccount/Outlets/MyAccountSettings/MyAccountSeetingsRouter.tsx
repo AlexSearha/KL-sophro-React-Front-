@@ -1,6 +1,6 @@
 // MUI
+// MUI
 import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import SecurityIcon from '@mui/icons-material/Security';
 // COMPONENT
 import LinkCard from './LinkCard/LinkCard';
@@ -9,7 +9,7 @@ import './style.scss';
 
 function MyAccountSettingsRouter() {
   return (
-    <>
+    <div className="linkcard-container">
       <LinkCard
         description="Ajoutez ou modifiez vos coordonées et informations de contact"
         title="Informations Personnelles"
@@ -17,18 +17,12 @@ function MyAccountSettingsRouter() {
         icon={SettingsIcon}
       />
       <LinkCard
-        description="Mettez à jour votre mot de passe"
+        description="Mettez à jour votre mot de passe / Supprimez votre compte"
         title="Sécurité"
         link="/mon-compte/parametres/securite"
         icon={SecurityIcon}
       />
-      <LinkCard
-        description="Modifiez vos paramètres de notifications"
-        title="Notifications"
-        link="/mon-compte/parametres/notifications"
-        icon={NotificationsActiveIcon}
-      />
-    </>
+    </div>
   );
 }
 

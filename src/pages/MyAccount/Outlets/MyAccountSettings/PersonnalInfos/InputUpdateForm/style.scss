@@ -1,0 +1,42 @@
+@use '../../../../../../styles/variables' as v;
+
+.textfield-updateform__form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  &-container {
+    position: relative;
+
+    &__userInfos {
+      width: 30%;
+    }
+  }
+
+  &-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    top: 12;
+    left: 0;
+    gap: 0.1rem;
+    z-index: 9999;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 5px;
+    border-color: v.$color-text-grey;
+  }
+}
+
+.dropdown-element {
+  transition: all 0.3s linear;
+  cursor: pointer;
+
+  &:hover {
+    background-color: v.$color-primary-hover;
+  }
+}

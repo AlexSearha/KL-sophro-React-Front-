@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 // MUI
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
-import { Button, Divider } from '@mui/material';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import WeekendOutlinedIcon from '@mui/icons-material/WeekendOutlined';
 // React Component
 import PriceCard from './PriceCard/PriceCard';
