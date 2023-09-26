@@ -17,9 +17,18 @@ export const addressGouvAPI = axios.create({
   baseURL: addressGouvAPIurl,
 });
 
-export const getLogin = () => {
+export const fetchLogin = () => {
   return apiBackEnd
     .get<UserProps>('/client')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const fetchLogout = () => {
+  return apiBackEnd
+    .get('/logout')
     .then((res) => res.data)
     .catch((err) => {
       throw err;

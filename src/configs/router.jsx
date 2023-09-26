@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // LAYOUTS
 import HomeLayout from '../components/Layouts/Home/HomeLayout';
 import MyAccountLayout from '../components/Layouts/MyAccount/MyAccountLayout';
+import BackOfficeLayout from '../components/Layouts/BackOffice/BackOfficeLayout';
 // OUTLETS
 import Home from '../pages/Home/Home';
 import LoginPage from '../pages/Login/Login';
@@ -17,6 +18,7 @@ import PersonalInfos from '../pages/MyAccount/Outlets/MyAccountSettings/Personna
 import MyAccountSettingsSecurity from '../pages/MyAccount/Outlets/MyAccountSettings/Security/MyAccountSettingsSecurity';
 import ForgottenPassword from '../pages/ForgottenPassword/ForgottenPassword';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import BackOfficeHome from '../pages/BackOffice/BackOfficeHome/BackOfficeHome';
 
 function RouterDom() {
   return (
@@ -43,8 +45,8 @@ function RouterDom() {
             <Route path="notifications" element={<MyAccountSettingsRouter />} />
           </Route>
         </Route>
-        <Route path="/back-office" element={<LoginPage />}>
-          <Route index element={<Test2 />} />
+        <Route path="/back-office" element={<BackOfficeLayout />}>
+          <Route index element={<BackOfficeHome />} />
         </Route>
       </Routes>
     </BrowserRouter>

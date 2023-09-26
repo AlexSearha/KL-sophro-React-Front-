@@ -73,8 +73,8 @@ function MobileMyAccountMenu() {
                     <FolderSharedIcon sx={{ marginRight: 1 }} /> Mon compte
                   </MenuItem>
                   <MenuItem
-                    onClick={() => {
-                      fetchLoggout();
+                    onClick={async () => {
+                      await fetchLoggout();
                       popupState.close;
                     }}
                   >
