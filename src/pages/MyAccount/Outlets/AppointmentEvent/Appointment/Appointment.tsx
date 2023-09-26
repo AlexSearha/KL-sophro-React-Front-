@@ -66,6 +66,7 @@ function Appointment({ item }: { item: AppointmentProps }) {
                 appointmentId={id}
                 getDate={getDate}
                 getHour={getHour}
+                getMinutes={getMinutes}
               />
             )}
           </div>

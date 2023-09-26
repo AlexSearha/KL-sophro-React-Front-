@@ -1,18 +1,20 @@
 // REACT
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // MUI
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 // STORE
 import { useUserInformations } from '../../../../../store/store';
 // API
-import { fetchResetPassword } from '../../../../../api/api';
+import { sendEmailResetPassword } from '../../../../../api/api';
 // CSS
 import './style.scss';
 import {
   AlertError,
   AlertSuccess,
 } from '../../../../../components/Layouts/Alert/AlertBox';
+import ModalDeleteAccount from './ModalDeleteAccount/ModalDeleteAccount';
 
 interface CheckDataProps {
   oldPassword: string;
@@ -35,7 +37,7 @@ function MyAccountSettingsSecurity() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const result = await fetchResetPassword(checkData);
+      const result = await sendEmailResetPassword(checkData);
       if (result) {
         setSuccessMessage(true);
       }
@@ -110,6 +112,7 @@ function MyAccountSettingsSecurity() {
           <AlertError message="Ancien mot de passe incorrect" />
         ) : null}
       </form>
+      <ModalDeleteAccount />
     </div>
   );
 }

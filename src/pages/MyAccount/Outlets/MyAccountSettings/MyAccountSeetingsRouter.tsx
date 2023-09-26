@@ -1,6 +1,6 @@
 // MUI
+// MUI
 import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import SecurityIcon from '@mui/icons-material/Security';
 // COMPONENT
 import LinkCard from './LinkCard/LinkCard';
@@ -17,7 +17,7 @@ function MyAccountSettingsRouter() {
         icon={SettingsIcon}
       />
       <LinkCard
-        description="Mettez à jour votre mot de passe"
+        description="Mettez à jour votre mot de passe / Supprimez votre compte"
         title="Sécurité"
         link="/mon-compte/parametres/securite"
         icon={SecurityIcon}

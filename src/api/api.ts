@@ -47,6 +47,15 @@ export const updateClientInfos = (
     });
 };
 
+export const deleteClientAccount = (userId: number) => {
+  return apiBackEnd
+    .delete(`/client/${userId}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const getUnavailableDaysOfTheWeek = () => {
   return apiBackEnd
     .get('/unavailability/1')
@@ -86,9 +95,30 @@ export const fetchDeleteAppointment = (
     });
 };
 
-export const fetchResetPassword = (data: any) => {
+export const sendEmailResetPassword = (data: any) => {
   return apiBackEnd
     .post(`/check-password`, data)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const fetchResetPassword = (data: {
+  password: string;
+  token: string | undefined;
+}) => {
+  return apiBackEnd
+    .post(`/reset-password`, data)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const sendingTokenToResetPassword = (data: { email: string }) => {
+  return apiBackEnd
+    .post(`/ask-new-password`, data)
     .then((res) => res.data)
     .catch((err) => {
       throw err;

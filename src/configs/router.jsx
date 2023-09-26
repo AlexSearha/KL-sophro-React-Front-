@@ -15,6 +15,8 @@ import MyAccountSettingsLayout from '../components/Layouts/MyAccount/MyAccountSe
 import MyAccountSettingsRouter from '../pages/MyAccount/Outlets/MyAccountSettings/MyAccountSeetingsRouter';
 import PersonalInfos from '../pages/MyAccount/Outlets/MyAccountSettings/PersonnalInfos/PersonnalInfos';
 import MyAccountSettingsSecurity from '../pages/MyAccount/Outlets/MyAccountSettings/Security/MyAccountSettingsSecurity';
+import ForgottenPassword from '../pages/ForgottenPassword/ForgottenPassword';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
 
 function RouterDom() {
   return (
@@ -24,6 +26,8 @@ function RouterDom() {
           <Route index element={<Home />} />
           <Route path="connexion" element={<LoginPage />} />
           <Route path="inscription" element={<SignUpPage />} />
+          <Route path="mdp-oublie" element={<ForgottenPassword />} />
+          <Route path="reinit-mdp/:token" element={<ResetPassword />} />
           <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/mon-compte" element={<MyAccountLayout />}>

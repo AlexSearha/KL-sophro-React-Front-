@@ -94,7 +94,6 @@ function AppointmentEvent() {
           const appointments = await getAllAppointments(userInfos.id);
           if (Array.isArray(appointments)) {
             UpdateUserAppointments(appointments);
-            // setLoading(false); // Mettre à jour l'état de chargement une fois les données chargées
           }
         }
       } catch (error) {

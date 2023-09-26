@@ -25,10 +25,12 @@ const style = {
 export default function CancelAppointmentModal({
   getDate,
   getHour,
+  getMinutes,
   appointmentId,
 }: {
   getDate: string[];
-  getHour: string[];
+  getHour: string;
+  getMinutes: string;
   appointmentId: number;
 }) {
   const UpdateIsAppointmentCancelled = useUser(
@@ -44,7 +46,8 @@ export default function CancelAppointmentModal({
       year: parseInt(getDate[0], 10),
       month: parseInt(getDate[1], 10),
       day: parseInt(getDate[2], 10),
-      hour: parseInt(getHour[0], 10) + 2,
+      hour: parseInt(getHour, 10) + 2,
+      minutes: parseInt(getMinutes, 10),
     },
   };
 
@@ -73,7 +76,10 @@ export default function CancelAppointmentModal({
               <p>
                 {`Confirmez-vous l'annulation du rendez-vous du ${getDate[2]}/${
                   getDate[1]
-                }/${getDate[0]} à ${parseInt(getHour[0], 10) + 2}H00 ?`}
+                }/${getDate[0]} à ${parseInt(getHour, 10) + 2}h${parseInt(
+                  getMinutes,
+                  10
+                )} ?`}
               </p>
               <div className="wishToCancel__buttons">
                 <Button variant="contained" onClick={handleCancelAppointment}>
