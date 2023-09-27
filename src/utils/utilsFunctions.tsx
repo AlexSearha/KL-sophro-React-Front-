@@ -13,9 +13,13 @@ export default async function regenerateAccessToken() {
     ) {
       return true;
     }
-  } catch (error) {
+  } catch (error: any) {
     if (error.response.data.message === 'refresh token expired') {
       return false;
     }
   }
+}
+
+export function isNavLinkSelected(pathname: string, linkPath: string) {
+  return pathname === linkPath;
 }

@@ -1,17 +1,38 @@
+@use '../../../../styles/variables' as v;
+
 .header-backoffice {
-  width: 200px;
-  padding: 1.4rem 1rem;
-  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  padding: 1.4rem 0;
+  border-right: 1px solid v.$color-text-grey;
+  background-color: v.$color-third;
 
-  &__logout {
+  &__main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    gap: 0.7rem;
+    margin-top: 5rem;
+    width: 100%;
+    height: 100%;
 
-    & span {
-      font-size: 1.2rem;
+    &__logo {
+      display: block;
+      text-align: center;
+    }
+
+    &__logout {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+
+      & span {
+        font-size: 1.2rem;
+      }
     }
   }
 
@@ -24,7 +45,38 @@
       display: flex;
       flex-direction: column;
       align-items: start;
+      width: 100%;
+      gap: 1rem;
       list-style: none;
+
+      & li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 1rem;
+        gap: 0.6rem;
+        color: v.$color-text-white;
+        transition: all 0.3s linear;
+
+        &:hover {
+          color: rgb(194, 194, 194);
+        }
+
+        & a {
+          text-decoration: none;
+          color: v.$color-text-white;
+          transition: all 0.3s linear;
+
+          &:hover {
+            color: rgb(194, 194, 194);
+          }
+        }
+      }
     }
   }
+}
+
+.selected {
+  color: v.$color-text-white;
+  border-left: 3px solid v.$color-text-white;
 }

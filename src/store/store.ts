@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import {
+  UseDoctorProps,
   UserInformationsProps,
   UserNavigationProps,
   UserStateProps,
@@ -22,6 +23,11 @@ const useUser = create<UserStateProps>()((set) => ({
   SetUnavailabilityTo: (value) => set(() => ({ unavailabilityTo: value })),
   SetSpecificUnavailabilitesDates: (value) =>
     set(() => ({ specificUnavailabilitesDates: value })),
+}));
+
+const useDoctor = create<UseDoctorProps>()((set) => ({
+  allAppointments: [],
+  UpdateAllAppointments: (value) => set(() => ({ allAppointments: value })),
 }));
 
 const useUserNavigation = create<UserNavigationProps>()((set) => ({
@@ -60,4 +66,4 @@ const useUserInformations = create<UserInformationsProps>()((set) => ({
       },
     })),
 }));
-export { useUser, useUserNavigation, useUserInformations };
+export { useUser, useUserNavigation, useUserInformations, useDoctor };

@@ -21,7 +21,7 @@ export default function LogoutTooltip() {
   return (
     <Tooltip title="Deconnexion">
       <IconButton onClick={handleClick}>
-        <LogoutIcon fontSize="large" />
+        <LogoutIcon sx={{ color: 'white' }} fontSize="large" />
       </IconButton>
     </Tooltip>
   );

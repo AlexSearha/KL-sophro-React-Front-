@@ -83,6 +83,15 @@ export const getSpecificUnavailableDays = () => {
     });
 };
 
+export const fetchAllAppointments = () => {
+  return apiBackEnd
+    .get(`/appointment`)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const fetchAddAppointment = (data: any) => {
   return apiBackEnd
     .post(`/client/${data.id}/appointment`, data)

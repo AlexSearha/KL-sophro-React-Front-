@@ -47,6 +47,9 @@ function RouterDom() {
         </Route>
         <Route path="/back-office" element={<BackOfficeLayout />}>
           <Route index element={<BackOfficeHome />} />
+          <Route path="clients" element={<Test2 />} />
+          <Route path="rendez-vous" element={<Test2 />} />
+          <Route path="parametres" element={<Test2 />} />
         </Route>
       </Routes>
     </BrowserRouter>

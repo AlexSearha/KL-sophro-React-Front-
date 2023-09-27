@@ -21,6 +21,11 @@ export interface UserStateProps {
   SetSpecificUnavailabilitesDates: (values: string[]) => void;
 }
 
+export interface UseDoctorProps {
+  allAppointments: AppointmentProps[];
+  UpdateAllAppointments: (value: AppointmentProps[]) => void;
+}
+
 export interface UserInformationsProps {
   userInfos: {
     id: number | null;
