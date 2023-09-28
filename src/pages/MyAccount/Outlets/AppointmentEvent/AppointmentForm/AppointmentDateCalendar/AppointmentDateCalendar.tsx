@@ -14,7 +14,7 @@ interface Props extends FieldConfig {
   name: string;
 }
 
-function AppointmentDatePicker({ label, ...props }: Props) {
+function AppointmentDateCalendar({ label, ...props }: Props) {
   const { setFieldValue } = useFormikContext();
 
   const [
@@ -30,6 +30,7 @@ function AppointmentDatePicker({ label, ...props }: Props) {
   ]);
 
   const handleDateChange = (date: Date | null) => {
+    console.log('date: ', date);
     if (date) {
       setFieldValue('appointmentHour', '');
       setFieldValue(props.name, dayjs(date).format('YYYY-MM-DD'));
@@ -78,4 +79,4 @@ function AppointmentDatePicker({ label, ...props }: Props) {
   );
 }
 
-export default AppointmentDatePicker;
+export default AppointmentDateCalendar;

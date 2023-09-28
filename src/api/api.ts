@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { APIaddressMainProps, UserProps } from '../@types';
+import {
+  APIaddressMainProps,
+  UserInformationsClientsProps,
+  UserProps,
+} from '../@types';
 
 interface UpdateDataProps {
   [key: string]: string;
@@ -39,6 +43,15 @@ export const getAllAppointments = (userId: number) => {
   return apiBackEnd
     .get<UserProps>(`/client/${userId}`)
     .then((res) => res.data.appointments)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const fetchAllClients = () => {
+  return apiBackEnd
+    .get(`/client`)
+    .then((res) => res.data)
     .catch((err) => {
       throw err;
     });

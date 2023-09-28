@@ -23,23 +23,29 @@ export interface UserStateProps {
 
 export interface UseDoctorProps {
   allAppointments: AppointmentProps[];
+  appointmentsOfTheDay: AppointmentProps[] | null;
+  allClients: UserInformationsClientsProps[] | null;
   UpdateAllAppointments: (value: AppointmentProps[]) => void;
+  UpdateAppointmentsOfTheDay: (value: AppointmentProps[]) => void;
+  UpdateAllClients: (value: UserInformationsClientsProps[]) => void;
 }
 
-export interface UserInformationsProps {
-  userInfos: {
-    id: number | null;
-    firstname?: string;
-    lastname: string;
-    email: string;
-    student: boolean | null;
-    address: string;
-    phone_number: string;
-    notification: boolean | null;
-    newsletter: boolean | null;
-    photo: string;
-  };
+export interface UserInformationsMainProps {
+  userInfos: UserInformationsClientsProps;
   UpdateUserInfos: (value: any) => void;
+}
+
+export interface UserInformationsClientsProps {
+  id: number | null;
+  firstname?: string;
+  lastname: string;
+  email: string;
+  student: boolean | null;
+  address: string;
+  phone_number: string;
+  notification: boolean | null;
+  newsletter: boolean | null;
+  photo: string;
 }
 
 export interface UserNavigationProps {
@@ -76,6 +82,11 @@ export interface UserProps {
 }
 
 export interface AppointmentProps {
+  client: {
+    id: number;
+    firstname: string;
+    lastname: string;
+  };
   id: number;
   date: string;
   status: string;

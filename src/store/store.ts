@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import {
   UseDoctorProps,
-  UserInformationsProps,
+  UserInformationsMainProps,
   UserNavigationProps,
   UserStateProps,
 } from '../@types';
@@ -27,7 +27,12 @@ const useUser = create<UserStateProps>()((set) => ({
 
 const useDoctor = create<UseDoctorProps>()((set) => ({
   allAppointments: [],
+  appointmentsOfTheDay: [],
+  allClients: [],
   UpdateAllAppointments: (value) => set(() => ({ allAppointments: value })),
+  UpdateAppointmentsOfTheDay: (value) =>
+    set(() => ({ appointmentsOfTheDay: value })),
+  UpdateAllClients: (value) => set(() => ({ allClients: value })),
 }));
 
 const useUserNavigation = create<UserNavigationProps>()((set) => ({
@@ -37,7 +42,7 @@ const useUserNavigation = create<UserNavigationProps>()((set) => ({
   UpdateIsLoading: () => set((state) => ({ isLoading: !state.isLoading })),
 }));
 
-const useUserInformations = create<UserInformationsProps>()((set) => ({
+const useUserInformations = create<UserInformationsMainProps>()((set) => ({
   userInfos: {
     id: null,
     firstname: '',

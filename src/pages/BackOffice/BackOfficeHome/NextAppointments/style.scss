@@ -1,0 +1,58 @@
+@use '../../../../styles/variables' as v;
+
+.appointments-of-the-day {
+  &-list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+
+    &__content {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+      margin: 1rem;
+    }
+
+    & h4 {
+      margin-bottom: 1rem;
+    }
+
+    &__card {
+      background-color: v.$color-bg;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+      padding: 0.2rem 1rem 1rem 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
+      &-date {
+        font-size: 1rem;
+        color: v.$color-primary;
+      }
+
+      &-client {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+
+      &-hour {
+        // font-size: 1rem;
+      }
+    }
+  }
+}
+
+.calendar-title {
+  display: block;
+  text-align: left;
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}

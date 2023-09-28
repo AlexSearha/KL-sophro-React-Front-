@@ -16,7 +16,7 @@ import {
   TextField,
 } from '@mui/material';
 // COMPONENT
-import AppointmentDatePicker from './AppointmentDatePicker/AppointmentDatePicker';
+import AppointmentDateCalendar from './AppointmentDateCalendar/AppointmentDateCalendar';
 import PaiementTotal from './AppointmentPaiement/AppointmentPaiement';
 // API
 import { fetchAddAppointment } from '../../../../../api/api';
@@ -44,7 +44,7 @@ export default function AppointmentForm({
     // console.log('appointmentsDates: ', appointmentsDates);
     return appointmentsDates.filter((testDates) => {
       const [bookedDate] = testDates;
-      if (selectionDate[0]) {
+      if (selectionDate) {
         return bookedDate === selectionDate[0];
       }
     });
@@ -113,16 +113,20 @@ export default function AppointmentForm({
 
   const onSubmit = async (userInformations, data) => {
     const [hours, minutes] = data.appointmentHour.split('h');
+    const [year, month, day] = data.appointmentDate.split('-');
     try {
       const selectedDate = new Date(
-        `${data.appointmentDate}T${hours}:${minutes}:00`
-      );
-      const utcDate = new Date(selectedDate.toUTCString());
+        year,
+        parseInt(month, 10) - 1,
+        day,
+        hours,
+        minutes
+      ).toISOString();
 
       const jsonToSend = {
         ...userInformations,
         ...data,
-        date: utcDate.toISOString(), // Utiliser la date UTC
+        date: selectedDate, // Utiliser la date UTC
         studentPayment: reductionPaiementIfStudent(userInformations.student),
       };
 
@@ -165,7 +169,7 @@ export default function AppointmentForm({
         <Form onSubmit={formik.handleSubmit}>
           <div className="appointment-form">
             <div className="appointment-form__calendar">
-              <AppointmentDatePicker
+              <AppointmentDateCalendar
                 name="appointmentDate"
                 label="Date de rendez-vous"
               />
